@@ -8,10 +8,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-
 public class Comment {
-    @Id
-    @GeneratedValue
+   @Id
+    //@GeneratedValue
     private Integer id;
 
     private String message;

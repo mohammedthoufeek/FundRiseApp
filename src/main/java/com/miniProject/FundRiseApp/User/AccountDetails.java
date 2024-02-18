@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class AccountDetails {
     @Id
-    @GeneratedValue
+   // @GeneratedValue
     private Integer id;
     private double balance;
     private String AccountName;

@@ -11,5 +11,6 @@ public class UserServiceImpl implements UserService {
     public User register(User user) {
         System.out.println("service working");
         return this.userRepo.save(user);
+
     }
 }
