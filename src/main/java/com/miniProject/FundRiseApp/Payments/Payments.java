@@ -1,4 +1,4 @@
-package com.miniProject.FundRiseApp.Comment;
+package com.miniProject.FundRiseApp.Payments;
 
 import com.miniProject.FundRiseApp.Post.Post;
 import com.miniProject.FundRiseApp.User.User;
@@ -7,38 +7,34 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
 @Entity
-
-public class Comment {
+public class Payments {
     @Id
     @GeneratedValue
     private Integer id;
-
-    private String message;
-    private LocalTime time;
+    private double amount;
     private LocalDate date;
-    @OneToOne
+    private LocalTime time;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public Comment() {
+    public Payments(Integer id, double amount, LocalDate date, LocalTime time) {
+        this.id = id;
+        this.amount = amount;
+        this.date = date;
+        this.time = time;
     }
 
-    public Comment(Integer id, String message, LocalTime time, LocalDate date) {
+    public Payments(Integer id, double amount, LocalDate date, LocalTime time, User user, Post post) {
         this.id = id;
-        this.message = message;
-        this.time = time;
+        this.amount = amount;
         this.date = date;
-    }
-
-    public Comment(Integer id, String message, LocalTime time, LocalDate date, User user, Post post) {
-        this.id = id;
-        this.message = message;
         this.time = time;
-        this.date = date;
         this.user = user;
         this.post = post;
     }
@@ -51,20 +47,12 @@ public class Comment {
         this.id = id;
     }
 
-    public String getMessage() {
-        return message;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public LocalTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public LocalDate getDate() {
@@ -73,6 +61,14 @@ public class Comment {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public User getUser() {
@@ -93,11 +89,13 @@ public class Comment {
 
     @Override
     public String toString() {
-        return "Comment{" +
+        return "Payments{" +
                 "id=" + id +
-                ", message='" + message + '\'' +
-                ", time=" + time +
+                ", amount=" + amount +
                 ", date=" + date +
+                ", time=" + time +
+                ", user=" + user +
+                ", post=" + post +
                 '}';
     }
 }
