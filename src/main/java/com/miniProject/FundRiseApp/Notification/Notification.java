@@ -10,8 +10,8 @@ import java.time.LocalTime;
 @Entity
 public class Notification {
 
-    @Id
-    @GeneratedValue
+  @Id
+    //@GeneratedValue
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "user_id")

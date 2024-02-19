@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User {
+public class User{
     @Id
    // @GeneratedValue
     private Integer id;

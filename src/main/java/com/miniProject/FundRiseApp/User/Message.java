@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Entity
 public class Message {
     @Id
-    @GeneratedValue
+    //@GeneratedValue
     Integer id;
     private LocalDate date;
     private LocalDate time;

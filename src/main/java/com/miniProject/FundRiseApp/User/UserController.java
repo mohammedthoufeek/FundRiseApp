@@ -14,7 +14,7 @@ public class UserController {
     private UserService userService;
     @PostMapping("user")
     public User createuser(@RequestBody User user){
-        System.out.println("controllerworking"+" "+user);
+        System.out.println("controllerworking");
         return this.userService.register(user);
     }
 >>>>>>> sanjay

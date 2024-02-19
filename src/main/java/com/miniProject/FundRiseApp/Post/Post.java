@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 public class Post {
     @Id
-    @GeneratedValue
+    //@GeneratedValue
     private Integer id;
     private String post;
     private String urlField;
