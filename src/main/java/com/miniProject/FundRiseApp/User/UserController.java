@@ -1,8 +1,6 @@
 package com.miniProject.FundRiseApp.User;
 
-<<<<<<< HEAD
-public class UserController {
-=======
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,5 +15,4 @@ public class UserController {
         System.out.println("controllerworking");
         return this.userService.register(user);
     }
->>>>>>> sanjay
 }

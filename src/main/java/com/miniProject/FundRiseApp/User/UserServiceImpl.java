@@ -1,8 +1,6 @@
 package com.miniProject.FundRiseApp.User;
 
-<<<<<<< HEAD
-public class UserServiceImpl {
-=======
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +14,4 @@ public class UserServiceImpl implements UserService {
         return this.userRepo.save(user);
 
     }
->>>>>>> sanjay
 }
