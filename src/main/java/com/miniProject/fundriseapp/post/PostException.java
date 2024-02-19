@@ -1,4 +1,7 @@
 package com.miniProject.fundriseapp.post;
 
-public class PostException {
+public class PostException extends Exception{
+    public PostException(String message){
+        super(message);
+    }
 }
