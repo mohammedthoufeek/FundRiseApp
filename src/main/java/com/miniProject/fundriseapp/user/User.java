@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 public class User{
     @Id
-   // @GeneratedValue
+    @GeneratedValue
     private Integer id;
     private String name;
     private LocalDate dob;
@@ -23,12 +23,15 @@ public class User{
     private Integer age;
 
     public enum Usertype {
-        user,
-        Investor,
-        CharityOrganisation
+        USER,
+        INVESTOR,
+        CHARITY
     }
     @Enumerated(EnumType.STRING)
     private Usertype usertype;
+
+    private String email;
+    private String password;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private AccountDetails accountDetails;
 
@@ -44,7 +47,23 @@ public class User{
     public User() {
     }
 
-    public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype) {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype, String email, String password) {
         this.id = id;
         this.name = name;
         this.dob = dob;
@@ -52,6 +71,8 @@ public class User{
         this.phonenumber = phonenumber;
         this.age = age;
         this.usertype = usertype;
+        this.email = email;
+        this.password = password;
     }
 
     public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype, AccountDetails accountDetails, List<Post> post, List<Payments> payments, List<Notification> notification) {
@@ -166,4 +187,7 @@ public class User{
                 ", usertype=" + usertype +
                 '}';
     }
+
+
+
 }
