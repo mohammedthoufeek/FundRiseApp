@@ -1,9 +1,12 @@
 package com.miniProject.fundriseapp.comment;
 
 
+import com.miniProject.fundriseapp.post.Post;
+import com.miniProject.fundriseapp.post.PostRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,12 +14,16 @@ import java.util.Optional;
 public class CommentServiceImpl implements CommentService{
     @Autowired
     private CommentRepo commentRepo;
-
+    private PostRepo postRepo;
     @Override
-    public Comment createComment(Comment comment) throws CommentException {
+    public String createComment(Integer postId,Comment comment) throws CommentException {
         Optional<Comment> commentOpt=this.commentRepo.findById(comment.getId());
         if(commentOpt.isPresent()) throw new CommentException("Comment is already exists");
-        return this.commentRepo.save(comment);
+        Comment commentObj= this.commentRepo.save(comment);
+        Post postObj=this.postRepo.findById(postId).get();
+        postObj.getComment().add(commentObj);
+        return "Comment Created Successfull";
+
     }
 
     @Override
@@ -49,5 +56,14 @@ public class CommentServiceImpl implements CommentService{
         List<Comment> commentOpt=this.commentRepo.findAll();
         if(commentOpt.isEmpty()) throw new CommentException("Please Create some Comment to view!!!");
         return this.commentRepo.findAll();
+    }
+
+    @Override
+    public Comment updateMessage(Integer commentId, String message) throws CommentException {
+        Optional<Comment> commentOpt=commentRepo.findById(commentId);
+        if(commentOpt.isPresent()) throw new CommentException("Comment Id is not wrong");
+        Comment comment=commentOpt.get();
+        comment.setMessage(message);
+        return this.commentRepo.save(comment);
     }
 }

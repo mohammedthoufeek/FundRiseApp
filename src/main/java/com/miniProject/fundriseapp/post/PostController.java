@@ -19,6 +19,7 @@ public class PostController {
         return this.postService.getPostById(id);
     }
 
+
     @PutMapping("post")
     public Post updatePost(@RequestBody Post post)throws PostException{
         return this.postService.updatePost(post);

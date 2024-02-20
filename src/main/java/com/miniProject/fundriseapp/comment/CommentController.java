@@ -1,6 +1,5 @@
 package com.miniProject.fundriseapp.comment;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +11,18 @@ public class CommentController {
     CommentService commentService;
 
     @PostMapping("comment")
-    public Comment createComment(@RequestBody Comment comment) throws CommentException{
-        return this.commentService.createComment(comment);
+    public String createComment(@RequestBody CommentDto commentDto) throws CommentException{
+        return this.commentService.createComment(commentDto.getPostId(),commentDto.getComment());
     }
 
     @PutMapping("comment")
     public Comment updateComment(@RequestBody Comment comment) throws CommentException{
         return this.commentService.updateComment(comment);
+    }
+
+    @PatchMapping("comment")
+    public Comment updateMessage(@RequestBody Integer commentId, String message) throws CommentException{
+        return this.commentService.updateMessage(commentId,message);
     }
 
     @GetMapping("comment/{id}")

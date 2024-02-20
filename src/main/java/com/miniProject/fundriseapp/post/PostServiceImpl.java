@@ -1,6 +1,9 @@
 package com.miniProject.fundriseapp.post;
 
 
+import com.miniProject.fundriseapp.comment.Comment;
+import com.miniProject.fundriseapp.comment.CommentRepo;
+import com.miniProject.fundriseapp.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,8 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepo postrepo;
+
+    private CommentRepo commentRepo;
 
 
     @Override
@@ -53,5 +58,7 @@ public class PostServiceImpl implements PostService {
         if(postOpt.isEmpty()) throw new PostException("No post was created");
         return this.postrepo.findAll();
     }
+
+
 
 }

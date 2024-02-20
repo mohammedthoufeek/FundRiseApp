@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "Post",schema = "public")
 public class Post {
     @Id
     //@GeneratedValue
@@ -19,6 +20,10 @@ public class Post {
     private String cause;
     private String details;
     private double amountNeeded;
+
+    public Post() {
+
+    }
 
     public enum postType{
         Startup,
@@ -36,8 +41,6 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Post() {
-    }
 
     public Post(Integer id, String post, String urlField, String cause, String details, double amountNeeded) {
         this.id = id;
@@ -126,12 +129,12 @@ public class Post {
         this.comment = comment;
     }
 
-    public double getAmountreceived() {
+    public double getAmountReceived() {
         return amountreceived;
     }
 
-    public void setAmountreceived(double amountreceived) {
-        this.amountreceived = amountreceived;
+    public void setAmountReceived(double amountReceived) {
+        this.amountreceived = amountReceived;
     }
 
     public List<Payments> getPayments() {
