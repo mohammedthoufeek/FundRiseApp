@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 public class PersonalMessage {
   @Id
-    //@GeneratedValue
+    @GeneratedValue
     Integer id;
     @OneToOne
     private User user1;
