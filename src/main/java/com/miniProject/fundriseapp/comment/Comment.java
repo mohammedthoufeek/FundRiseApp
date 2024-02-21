@@ -10,12 +10,12 @@ import java.time.LocalTime;
 
 @Entity
 public class Comment {
-   @Id
-    //@GeneratedValue
+    @Id
+    @GeneratedValue
     private Integer id;
 
     private String message;
-    private LocalTime time;
+//    private LocalTime time;
     private LocalDate date;
     @OneToOne
     private User user;
@@ -24,20 +24,22 @@ public class Comment {
     private Post post;
 
     public Comment() {
+//        this.time=LocalTime.now();
+        this.date=LocalDate.now();
     }
 
     public Comment(Integer id, String message, LocalTime time, LocalDate date) {
         this.id = id;
         this.message = message;
-        this.time = time;
-        this.date = date;
+//        this.time = LocalTime.now();
+        this.date = LocalDate.now();
     }
 
-    public Comment(Integer id, String message, LocalTime time, LocalDate date, User user, Post post) {
+    public Comment(Integer id, String message, User user, Post post) {
         this.id = id;
         this.message = message;
-        this.time = time;
-        this.date = date;
+//        this.time = LocalTime.now();
+        this.date = LocalDate.now();
         this.user = user;
         this.post = post;
     }
@@ -58,13 +60,13 @@ public class Comment {
         this.message = message;
     }
 
-    public LocalTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
+//    public LocalTime getTime() {
+//        return time;
+//    }
+//
+//    public void setTime(LocalTime time) {
+//        this.time = time;
+//    }
 
     public LocalDate getDate() {
         return date;
@@ -95,7 +97,7 @@ public class Comment {
         return "Comment{" +
                 "id=" + id +
                 ", message='" + message + '\'' +
-                ", time=" + time +
+//                ", time=" + time +
                 ", date=" + date +
                 '}';
     }

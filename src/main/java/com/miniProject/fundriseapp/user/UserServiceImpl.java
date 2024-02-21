@@ -1,7 +1,13 @@
 package com.miniProject.fundriseapp.user;
 
 
+
 import jakarta.servlet.http.HttpSession;
+
+import com.miniProject.fundriseapp.comment.Comment;
+import com.miniProject.fundriseapp.comment.CommentRepo;
+import com.miniProject.fundriseapp.post.Post;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.mindrot.jbcrypt.BCrypt;
@@ -11,15 +17,20 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userRepo;
+
     @Autowired
     private PersonalMessageRepo personalMessageRepo;
 
     @Autowired
     private MessageRepo messagerepo;
+    private CommentRepo commentRepo;
+
     @Override
     public User register(User user) throws UserException {
         User email = userRepo.findByEmail(user.getEmail());
