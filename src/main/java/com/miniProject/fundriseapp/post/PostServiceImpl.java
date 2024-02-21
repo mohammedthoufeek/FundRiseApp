@@ -2,8 +2,10 @@ package com.miniProject.fundriseapp.post;
 
 
 import com.miniProject.fundriseapp.comment.Comment;
+import com.miniProject.fundriseapp.comment.CommentException;
 import com.miniProject.fundriseapp.comment.CommentRepo;
 import com.miniProject.fundriseapp.user.User;
+import com.miniProject.fundriseapp.user.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +19,20 @@ public class PostServiceImpl implements PostService {
     private PostRepo postrepo;
 
     private CommentRepo commentRepo;
-
+    private UserRepo userRepo;
 
     @Override
-    public Post createPost(Post newPost) throws PostException{
-
-        Optional<Post> postOpt=this.postrepo.findById(newPost.getId());
-        if (postOpt.isPresent()) throw new PostException("Post was already created");
-        return this.postrepo.save(newPost);
+    public String createPost(Integer userId,Post newPost) throws PostException{
+//        Optional<Post> postOpt=this.postrepo.findById(newPost.getId());
+//        if(postOpt.isPresent()) throw new PostException("Post is already exists");
+        System.out.println("Service Working"+newPost);
+        Post postObj= this.postrepo.save(newPost);
+//        User userObj=this.userRepo.findById(userId).get();
+//        userObj.getPost().add(postObj);
+//        this.userRepo.save(userObj);
+//        postObj.setUser(userObj);
+        postrepo.save(postObj);
+        return "Post Created Successfully";
     }
 
     @Override

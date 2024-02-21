@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface PostService {
 
-    Post createPost(Post newPost) throws PostException;
+    String createPost(Integer userId,Post newPost) throws PostException;
 
     Post getPostById(Integer id) throws PostException;
 

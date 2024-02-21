@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Post",schema = "public")
+//@Table(name = "Post",schema = "public")
 public class Post {
     @Id
-    //@GeneratedValue
+    @GeneratedValue
     private Integer id;
-    private String post;
+    private String title;
     private String urlField;
     private String cause;
     private String details;
@@ -31,7 +31,7 @@ public class Post {
         CharityOrganisation
     }
     @Enumerated(EnumType.STRING)
-    private Post.postType usertype;
+    private Post.postType postType;
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<Comment> comment=new ArrayList<>();
     private double amountreceived;
@@ -42,23 +42,23 @@ public class Post {
     private User user;
 
 
-    public Post(Integer id, String post, String urlField, String cause, String details, double amountNeeded) {
+    public Post(Integer id, String title, String urlField, String cause, String details, double amountNeeded) {
         this.id = id;
-        this.post = post;
+        this.title = title;
         this.urlField = urlField;
         this.cause = cause;
         this.details = details;
         this.amountNeeded = amountNeeded;
     }
 
-    public Post(Integer id, String post, String urlField, String cause, String details, double amountNeeded, postType usertype, List<Comment> comment, double amountreceived, List<Payments> payments, User user) {
+    public Post(Integer id, String title, String urlField, String cause, String details, double amountNeeded, postType usertype, List<Comment> comment, double amountreceived, List<Payments> payments, User user) {
         this.id = id;
-        this.post = post;
+        this.title = title;
         this.urlField = urlField;
         this.cause = cause;
         this.details = details;
         this.amountNeeded = amountNeeded;
-        this.usertype = usertype;
+        this.postType = usertype;
         this.comment = comment;
         this.amountreceived = amountreceived;
         this.payments = payments;
@@ -73,12 +73,12 @@ public class Post {
         this.id = id;
     }
 
-    public String getPost() {
-        return post;
+    public String getTitle() {
+        return title;
     }
 
-    public void setPost(String post) {
-        this.post = post;
+    public void setTitle(String post) {
+        this.title = post;
     }
 
     public String getUrlField() {
@@ -113,12 +113,12 @@ public class Post {
         this.amountNeeded = amountNeeded;
     }
 
-    public postType getUsertype() {
-        return usertype;
+    public postType getPostType() {
+        return postType;
     }
 
-    public void setUsertype(postType usertype) {
-        this.usertype = usertype;
+    public void setPostType(postType usertype) {
+        this.postType = usertype;
     }
 
     public List<Comment> getComment() {
@@ -157,7 +157,7 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", post='" + post + '\'' +
+                ", post='" + title + '\'' +
                 ", urlField='" + urlField + '\'' +
                 ", cause='" + cause + '\'' +
                 ", details='" + details + '\'' +

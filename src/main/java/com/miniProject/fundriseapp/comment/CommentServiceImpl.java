@@ -22,6 +22,9 @@ public class CommentServiceImpl implements CommentService{
         Comment commentObj= this.commentRepo.save(comment);
         Post postObj=this.postRepo.findById(postId).get();
         postObj.getComment().add(commentObj);
+        this.postRepo.save(postObj);
+        commentObj.setPost(postObj);
+        commentRepo.save(commentObj);
         return "Comment Created Successfull";
 
     }
