@@ -21,6 +21,7 @@ public class CommentServiceImpl implements CommentService{
         if(commentOpt.isPresent()) throw new CommentException("Comment is already exists");
         Comment commentObj= this.commentRepo.save(comment);
         Post postObj=this.postRepo.findById(postId).get();
+        System.out.println("Post get"+postObj);
         postObj.getComment().add(commentObj);
         this.postRepo.save(postObj);
         commentObj.setPost(postObj);

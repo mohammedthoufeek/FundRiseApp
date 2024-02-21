@@ -27,6 +27,7 @@ public class PostServiceImpl implements PostService {
 //        if(postOpt.isPresent()) throw new PostException("Post is already exists");
         System.out.println("Service Working"+newPost);
         Post postObj= this.postrepo.save(newPost);
+
 //        User userObj=this.userRepo.findById(userId).get();
 //        userObj.getPost().add(postObj);
 //        this.userRepo.save(userObj);
