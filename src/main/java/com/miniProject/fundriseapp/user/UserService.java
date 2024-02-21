@@ -19,4 +19,8 @@ public interface UserService {
    List<User> getProfileInvestors();
 
    List<User> getProfileUsers();
+   String createConversation(ChatDTO chatDTO) throws UserException;
+   PersonalMessage getpersonalMessage(Integer userid1,Integer userid2);
+
+   List<PersonalMessage> getallpersonalMessage();
 }

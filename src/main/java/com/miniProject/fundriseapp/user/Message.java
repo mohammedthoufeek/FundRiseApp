@@ -3,20 +3,21 @@ package com.miniProject.fundriseapp.user;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 public class Message {
     @Id
-    //@GeneratedValue
+    @GeneratedValue
     Integer id;
     private LocalDate date;
-    private LocalDate time;
+    private LocalTime time;
     private String message;
     @ManyToOne
     @JoinColumn(name = "messages")
     private PersonalMessage personalMessage;
 
-    public Message(Integer id, LocalDate date, LocalDate time, String message, PersonalMessage personalMessage) {
+    public Message(Integer id, LocalDate date, LocalTime time, String message, PersonalMessage personalMessage) {
         this.id = id;
         this.date = date;
         this.time = time;
@@ -43,11 +44,11 @@ public class Message {
         this.date = date;
     }
 
-    public LocalDate getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(LocalDate time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 

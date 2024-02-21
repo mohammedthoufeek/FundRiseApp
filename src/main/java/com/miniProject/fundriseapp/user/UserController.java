@@ -57,6 +57,19 @@ public class UserController {
         return this.userService.getProfileUsers();
     }
 
+    @PostMapping("chat")
+    public String CreateConversation(@RequestBody ChatDTO chatDTO) throws UserException {
+        return this.userService.createConversation(chatDTO);
 
+    }
+    @GetMapping ("chat/get")
+    public PersonalMessage getConversation(@RequestBody Integer id1, Integer id2) throws UserException {
+        return this.userService.getpersonalMessage(id1,id2);
+
+    }
+    @GetMapping("getchat")
+    public List<PersonalMessage> getallconverstaion(){
+        return this.userService.getallpersonalMessage();
+    }
     }
 
