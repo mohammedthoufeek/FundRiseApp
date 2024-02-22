@@ -3,10 +3,7 @@ package com.miniProject.fundriseapp.user;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -62,8 +59,8 @@ public class UserController {
         return this.userService.createConversation(chatDTO);
 
     }
-    @GetMapping ("chat/get")
-    public PersonalMessage getConversation(@RequestBody Integer id1, Integer id2) throws UserException {
+    @GetMapping ("chat/get/{id1}/{id2}")
+    public PersonalMessage getConversation(@PathVariable Integer id1, Integer id2) throws UserException {
         return this.userService.getpersonalMessage(id1,id2);
 
     }

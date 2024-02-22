@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
         message.setDate(LocalDate.now());
         message.setTime(LocalTime.now());
         message.setMessage(chatDTO.getMessage());
-
+        message.setUser(user1);
         if(personalMessage1==null && personalMessage2 ==null){
             PersonalMessage personalMessage=new PersonalMessage();
             personalMessage.setUser1(user1);
@@ -145,7 +145,6 @@ public class UserServiceImpl implements UserService {
         System.out.println(user1+" "+user2);
         PersonalMessage personalMessage1=this.personalMessageRepo.findByUser1AndUser2(user1,user2);
         PersonalMessage personalMessage2=this.personalMessageRepo.findByUser1AndUser2(user2,user1);
-        System.out.println("gett"+personalMessage1+" "+personalMessage2);
         if(personalMessage1==null) return personalMessage2;
         if(personalMessage2==null) return personalMessage1;
         return null;
