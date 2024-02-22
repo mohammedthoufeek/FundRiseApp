@@ -10,8 +10,8 @@ public class PostController {
     @Autowired
     PostService postService;
     @PostMapping("post")
-    public Post createPost(@RequestBody Post post )throws PostException{
-        return this.postService.createPost(post);
+    public Post createPost(@RequestBody Integer user_id,Post post)throws PostException{
+        return this.postService.createPost(user_id,post);
     }
 
     @GetMapping("post/{id}")

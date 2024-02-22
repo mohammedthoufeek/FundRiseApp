@@ -12,7 +12,7 @@ public class CommentController {
 
     @PostMapping("comment")
     public String createComment(@RequestBody CommentDto commentDto) throws CommentException{
-        return this.commentService.createComment(commentDto.getPostId(),commentDto.getComment());
+        return this.commentService.createComment(commentDto);
     }
 
     @PutMapping("comment")
