@@ -2,6 +2,9 @@ package com.miniProject.fundriseapp.user;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.miniProject.fundriseapp.notification.Notification;
 import com.miniProject.fundriseapp.payments.Payments;
 import com.miniProject.fundriseapp.post.Post;
@@ -12,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class User{
     @Id
     @GeneratedValue
@@ -34,6 +40,7 @@ public class User{
     private String password;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private AccountDetails accountDetails;
+
 
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)

@@ -1,8 +1,6 @@
 package com.miniProject.fundriseapp.post;
 
 
-import com.miniProject.fundriseapp.comment.Comment;
-import com.miniProject.fundriseapp.comment.CommentException;
 import com.miniProject.fundriseapp.comment.CommentRepo;
 import com.miniProject.fundriseapp.user.User;
 import com.miniProject.fundriseapp.user.UserRepo;
@@ -17,31 +15,39 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepo postrepo;
-
+@Autowired
     private CommentRepo commentRepo;
+@Autowired
     private UserRepo userRepo;
 
     @Override
-    public String createPost(Integer userId,Post newPost) throws PostException{
-//        Optional<Post> postOpt=this.postrepo.findById(newPost.getId());
-//        if(postOpt.isPresent()) throw new PostException("Post is already exists");
-        System.out.println("Service Working"+newPost);
-        Post postObj= this.postrepo.save(newPost);
+    public Post createPost(Integer userId, Post newPost) throws PostException{
 
-//        User userObj=this.userRepo.findById(userId).get();
-//        userObj.getPost().add(postObj);
-//        this.userRepo.save(userObj);
-//        postObj.setUser(userObj);
-        postrepo.save(postObj);
-        return "Post Created Successfully";
+        System.out.println("Service Working" + newPost);
+        User userObj = this.userRepo.findById(userId).orElse(null);
+        if (userObj != null) {
+            // Set the user for the new post
+            newPost.setUser(userObj);
+            // Save the post
+            Post postObj = this.postrepo.save(newPost);
+            // Add the post to the user's list of posts
+            userObj.getPost().add(postObj);
+            // Save the user object
+            this.userRepo.save(userObj);
+            return postObj;
+        } else {
+            throw new PostException("User not found");
+        }
     }
 
     @Override
     public Post getPostById(Integer id)throws PostException {
         Optional<Post> postOpt=this.postrepo.findById(id);
-        if(postOpt.isPresent()) return this.postrepo.findById(id).get();
+        if(postOpt.isPresent()) {
+            System.out.println("getpost"+ this.postrepo.findById(id).get());
+            return this.postrepo.findById(id).get();
+        }
         else throw new PostException("No post was created yet!!!");
-
     }
 
     @Override

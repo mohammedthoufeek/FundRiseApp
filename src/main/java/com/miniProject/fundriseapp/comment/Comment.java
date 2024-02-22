@@ -1,5 +1,8 @@
 package com.miniProject.fundriseapp.comment;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.miniProject.fundriseapp.post.Post;
 import com.miniProject.fundriseapp.user.User;
 import jakarta.persistence.*;
@@ -9,6 +12,9 @@ import java.time.LocalTime;
 
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Comment {
     @Id
     @GeneratedValue
@@ -17,12 +23,8 @@ public class Comment {
     private String message;
 //    private LocalTime time;
     private LocalDate date;
-    @OneToOne
-    private User user;
     @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
-
+    private User user;
     public Comment() {
 //        this.time=LocalTime.now();
         this.date=LocalDate.now();
@@ -35,13 +37,13 @@ public class Comment {
         this.date = LocalDate.now();
     }
 
-    public Comment(Integer id, String message, User user, Post post) {
+    public Comment(Integer id, String message, User user) {
         this.id = id;
         this.message = message;
 //        this.time = LocalTime.now();
         this.date = LocalDate.now();
         this.user = user;
-        this.post = post;
+
     }
 
     public Integer getId() {
@@ -84,13 +86,6 @@ public class Comment {
         this.user = user;
     }
 
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
 
     @Override
     public String toString() {
