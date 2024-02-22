@@ -15,12 +15,7 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
 
     private CommentRepo commentRepo;
-    @Override
-    public User register(User user) {
-        System.out.println("service working");
-        return this.userRepo.save(user);
 
-    }
 
 
 }
