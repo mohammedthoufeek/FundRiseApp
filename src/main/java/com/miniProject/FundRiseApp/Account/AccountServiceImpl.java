@@ -1,42 +1,70 @@
 package com.miniProject.FundRiseApp.Account;
 
+import com.miniProject.FundRiseApp.User.User;
+import com.miniProject.FundRiseApp.User.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService{
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountRepo accountRepo;
+    private UserRepo userRepo;
 
     @Override
-    public Account createAccount(Account newAccount) {
-        return null;
+    public Account createAccount(Account newAccount, Integer userId) throws AccountException {
+        Account accountOpt = this.accountRepo.findById(newAccount.getId()).get();
+        User user = this.userRepo.findById(userId).get();
+        if(accountOpt == null)
+            throw new AccountException("Id already exists :"+newAccount.getId());
+        newAccount.setUser(user);
+        accountOpt = accountRepo.save(newAccount);
+        //user.setAccountDetails(accountOpt);
+        return this.accountRepo.save(newAccount);
     }
 
     @Override
     public Account getAccountById(Integer accountId) {
-        return null;
+        return this.accountRepo.findById(accountId).get();
     }
 
     @Override
-    public Double depositFundsById(Integer accountId) {
-        return null;
+    public Double depositFundsById(Integer accountId, Double amount) throws AccountException {
+        Optional<Account> accountOpt = this.accountRepo.findById(accountId);
+        if(accountOpt.isEmpty())
+            throw new AccountException("Account does not exist: "+accountId);
+        Account account = accountOpt.get();
+        amount = account.getBalance()+amount;
+        account.setBalance(amount);
+        return amount;
     }
 
-    @Override
-    public Double withdrawAllFunds() {
+   /* @Override
+    public Double withdrawAllFunds(Integer accountId) {
+
         return null;
-    }
+    } */
 
     @Override
-    public Boolean updateAccountNameById(Integer accountId) {
-        return null;
+    public Boolean updateAccountNameById(Integer accountId, String name) throws AccountException {
+        Account account = this.accountRepo.findById(accountId).get();
+        if(account == null)
+            throw new AccountException("Account id does not exist: "+accountId);
+        account.setAccountName(name);
+        if(this.accountRepo.save(account).getId()==accountId)
+            return true;
+        return false;
     }
 
     @Override
     public Account deleteAccountById(Integer accountId) {
-        return null;
+        Optional<Account> accountOpt = this.accountRepo.findById(accountId);
+        this.accountRepo.deleteById(accountId);
+        return accountOpt.get();
     }
+
 
 }

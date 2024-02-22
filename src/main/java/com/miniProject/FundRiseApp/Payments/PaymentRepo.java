@@ -1,5 +1,7 @@
 package com.miniProject.FundRiseApp.Payments;
 
-public interface PaymentRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PaymentRepo extends JpaRepository<Payments,Integer> {
 
 }

@@ -11,13 +11,13 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping("account")
-    public Account createAccount(@RequestBody Account account) throws AccountException{
-        return this.accountService.createAccount(account);
+    public Account createAccount(@RequestBody Account account,Integer id) throws AccountException{
+        return this.accountService.createAccount(account,id);
     }
 
-    @PutMapping("account")
-    public Boolean updateAccount(@RequestBody Account account){
-        return this.accountService.updateAccountNameById(account.getId());
+    @PatchMapping("account")
+    public Boolean updateAccount(@PathVariable Integer id, String name) throws AccountException {
+        return this.accountService.updateAccountNameById(id,name);
     }
 
     @GetMapping("account/{id}")
@@ -26,14 +26,14 @@ public class AccountController {
     }
 
     @PatchMapping("account/{id}")
-    public Double depositFundsById(@RequestBody Integer accountId){
-        return this.accountService.depositFundsById(accountId);
+    public Double depositFundsById(@RequestBody Integer accountId, Double amount) throws AccountException {
+        return this.accountService.depositFundsById(accountId,amount);
     }
 
-    @PutMapping("account")
+    /*@PutMapping("account")
     public Double withdrawAllFunds(){
         return this.accountService.withdrawAllFunds();
-    }
+    }*/
 
     @DeleteMapping("account/{id}")
     public Account deleteAccountById(@PathVariable("id") Integer accountId){
