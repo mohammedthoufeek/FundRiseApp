@@ -9,8 +9,8 @@ import java.time.LocalTime;
 
 @Entity
 public class Payments {
-   @Id
-    //@GeneratedValue
+    @Id
+    @GeneratedValue
     private Integer id;
     private double amount;
     private LocalDate date;
@@ -30,8 +30,7 @@ public class Payments {
         this.time = time;
     }
 
-    public Payments(Integer id, double amount, LocalDate date, LocalTime time, User user, Post post) {
-        this.id = id;
+    public Payments( double amount, LocalDate date, LocalTime time, User user, Post post) {
         this.amount = amount;
         this.date = date;
         this.time = time;

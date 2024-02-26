@@ -2,6 +2,7 @@ package com.miniProject.FundRiseApp.User;
 
 
 
+import com.miniProject.FundRiseApp.Account.Account;
 import com.miniProject.FundRiseApp.Notification.Notification;
 import com.miniProject.FundRiseApp.Payments.Payments;
 import com.miniProject.FundRiseApp.Post.Post;
@@ -30,7 +31,7 @@ public class User{
     @Enumerated(EnumType.STRING)
     private Usertype usertype;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-    private AccountDetails accountDetails;
+    private Account account;
 
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
@@ -54,7 +55,7 @@ public class User{
         this.usertype = usertype;
     }
 
-    public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype, AccountDetails accountDetails, List<Post> post, List<Payments> payments, List<Notification> notification) {
+    public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype, Account account, List<Post> post, List<Payments> payments, List<Notification> notification) {
         this.id = id;
         this.name = name;
         this.dob = dob;
@@ -62,7 +63,7 @@ public class User{
         this.phonenumber = phonenumber;
         this.age = age;
         this.usertype = usertype;
-        this.accountDetails = accountDetails;
+        this.account = account;
         this.post = post;
         this.payments = payments;
         this.notification = notification;
@@ -124,12 +125,12 @@ public class User{
         this.usertype = usertype;
     }
 
-    public AccountDetails getAccountDetails() {
-        return accountDetails;
+    public com.miniProject.FundRiseApp.Account.Account getAccountDetails() {
+        return account;
     }
 
-    public void setAccountDetails(AccountDetails accountDetails) {
-        this.accountDetails = accountDetails;
+    public void setAccountDetails(Account account) {
+        this.account = account;
     }
 
     public List<Post> getPost() {

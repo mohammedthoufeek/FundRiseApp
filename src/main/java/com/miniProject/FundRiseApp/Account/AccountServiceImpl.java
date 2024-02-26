@@ -18,20 +18,26 @@ public class AccountServiceImpl implements AccountService{
     public Account createAccount(Account newAccount, Integer userId) throws AccountException {
         Account accountOpt = this.accountRepo.findById(newAccount.getId()).get();
         User user = this.userRepo.findById(userId).get();
-        if(accountOpt == null)
+        if(accountOpt != null)
             throw new AccountException("Id already exists :"+newAccount.getId());
         newAccount.setUser(user);
-        accountOpt = accountRepo.save(newAccount);
+        //accountOpt = accountRepo.save(newAccount);
         //user.setAccountDetails(accountOpt);
         return this.accountRepo.save(newAccount);
     }
 
     @Override
-    public Account getAccountById(Integer accountId) {
-        return this.accountRepo.findById(accountId).get();
+    public Account getAccountById(Integer userId) { // find by userId - exception handling(check user id and account)
+        User user = this.userRepo.findById(userId).get();
+        return this.accountRepo.findByUser(user);
     }
 
     @Override
+    public Double depositFundsById(Integer accountId, Double amount) throws AccountException {
+        return null;
+    }
+
+    /*@Override
     public Double depositFundsById(Integer accountId, Double amount) throws AccountException {
         Optional<Account> accountOpt = this.accountRepo.findById(accountId);
         if(accountOpt.isEmpty())
@@ -41,7 +47,7 @@ public class AccountServiceImpl implements AccountService{
         account.setBalance(amount);
         return amount;
     }
-
+*/
    /* @Override
     public Double withdrawAllFunds(Integer accountId) {
 

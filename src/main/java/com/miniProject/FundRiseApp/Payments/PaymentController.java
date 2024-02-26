@@ -1,5 +1,7 @@
 package com.miniProject.FundRiseApp.Payments;
 
+import com.miniProject.FundRiseApp.Account.AccountDto;
+import com.miniProject.FundRiseApp.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +14,8 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @PostMapping("payment")
-    public Payments addPayment(@RequestBody Integer id,Payments newPayment) throws PaymentsException {
-        return this.paymentService.addPayments(id,newPayment);
+    public Payments addPayment(@RequestBody PaymentDto paymentDto) throws PaymentsException {
+        return this.paymentService.addPayments(paymentDto);
     }
 
     @GetMapping("payment")
@@ -25,5 +27,7 @@ public class PaymentController {
     public Payments getPaymentById(@PathVariable Integer id){
         return this.paymentService.getPaymentById(id);
     }
+
+
 
 }
