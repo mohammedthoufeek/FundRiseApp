@@ -1,4 +1,60 @@
 package com.miniProject.fundriseapp.notification;
 
-public class NotificationServiceImpl {
+import com.miniProject.fundriseapp.comment.Comment;
+import com.miniProject.fundriseapp.comment.CommentException;
+import com.miniProject.fundriseapp.user.UserRepo;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
+
+import com.miniProject.fundriseapp.user.User;
+import com.miniProject.fundriseapp.post.Post;
+import org.springframework.stereotype.Service;
+
+@Service
+public class NotificationServiceImpl implements NotificationService {
+    @Autowired
+    private NotificationRepo notificationRepo;
+    @Autowired
+    private UserRepo userRepo;
+//    public Notification notificationForPosting(Post postObj, User user,String message)
+//    {
+//        Notification notification=new Notification();
+//        notification.setPost(postObj);
+//        notification.setUser(user);
+//        notification.setMessage("Your "+message+" has been published");
+//        notification.setDate(LocalDate.now());
+//        notification.setTime(LocalTime.now());
+//        this.notificationRepo.save(notification);
+//        return this.notificationRepo.save(notification);
+//
+//        //notification.setMessage("Your post has been published");//string post
+//
+//    }
+
+
+    //    @Override
+//    public List<Notification> getAllNotification() throws NotificationException {
+//    List<Notification> NotificationOpt=this.notificationRepo.findAll();
+//    if(NotificationOpt.isEmpty()) throw new NotificationException("You haven't received any Notification yet!!!");
+//    return this.notificationRepo.findAll();
+//}
+    @Override
+    public List<Notification> getAllNotificationByTheirUserId(Integer userId) throws NotificationException {
+
+
+        Optional<User> userOpt = userRepo.findById(userId);
+        if (userOpt.isEmpty()) {
+            throw new NotificationException("User with ID " + userId + " not found");
+        }
+        List<Notification> notifications = notificationRepo.findByUserId(userId);
+        if (notifications.isEmpty()) {
+            throw new NotificationException("No notifications found for user with ID: " + userId);
+        }
+        return notifications;
+    }
 }

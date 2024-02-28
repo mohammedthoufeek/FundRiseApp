@@ -21,8 +21,8 @@ public class PostController {
 
 
     @PutMapping("post")
-    public Post updatePost(@RequestBody Post post)throws PostException{
-        return this.postService.updatePost(post);
+    public Post updatePost(@RequestBody Post post,Integer userId)throws PostException{
+        return this.postService.updatePost(post,userId);
     }
 
     @GetMapping("posts")
@@ -30,8 +30,8 @@ public class PostController {
         return this.postService.getAllPost();
     }
     @DeleteMapping("post/{id}")
-    public Post deletePostById(@PathVariable Integer id) throws PostException{
-        return this.postService.deletePostById(id);
+    public Post deletePostById(@PathVariable Integer id,Integer userId) throws PostException{
+        return this.postService.deletePostById(id,userId);
     }
 
 
