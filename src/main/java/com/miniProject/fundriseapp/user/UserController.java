@@ -68,5 +68,13 @@ public class UserController {
     public List<PersonalMessage> getallconverstaion(){
         return this.userService.getallpersonalMessage();
     }
+
+    @PatchMapping("EditMessage")
+    public Message editMessage(MessageDTO messageDTO) throws UserException{
+        return this.userService.editMessage(messageDTO);
     }
 
+
+
+
+}
