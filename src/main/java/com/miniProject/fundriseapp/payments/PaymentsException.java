@@ -1,4 +1,7 @@
 package com.miniProject.fundriseapp.payments;
 
-public class PaymentsException {
+public class PaymentsException extends Exception{
+    public PaymentsException(String message) {
+        super(message);
+    }
 }

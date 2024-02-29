@@ -4,6 +4,7 @@ package com.miniProject.fundriseapp.user;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.miniProject.fundriseapp.account.Account;
 import com.miniProject.fundriseapp.notification.Notification;
 import com.miniProject.fundriseapp.payments.Payments;
 import com.miniProject.fundriseapp.post.Post;
@@ -38,7 +39,7 @@ public class User{
     private String email;
     private String password;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-    private AccountDetails accountDetails;
+    private Account accountDetails;
 
 
 
@@ -81,7 +82,7 @@ public class User{
         this.password = password;
     }
 
-    public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype, AccountDetails accountDetails, List<Post> post, List<Payments> payments, List<Notification> notification) {
+    public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype, Account accountDetails, List<Post> post, List<Payments> payments, List<Notification> notification) {
         this.id = id;
         this.name = name;
         this.dob = dob;
@@ -152,11 +153,11 @@ public class User{
         this.usertype = usertype;
     }
 
-    public AccountDetails getAccountDetails() {
+    public Account getAccountDetails() {
         return accountDetails;
     }
 
-    public void setAccountDetails(AccountDetails accountDetails) {
+    public void setAccountDetails(Account accountDetails) {
         this.accountDetails = accountDetails;
     }
 
