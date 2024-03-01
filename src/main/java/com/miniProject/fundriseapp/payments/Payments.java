@@ -30,17 +30,13 @@ public class Payments {
         this.time = time;
     }
 
-    public Payments( double amount, LocalDate date, LocalTime time, User user, Post post) {
+    public Payments(Integer id, double amount, LocalDate date, LocalTime time, User user, Post post) {
         this.id = id;
         this.amount = amount;
         this.date = date;
         this.time = time;
         this.user = user;
         this.post = post;
-    }
-
-    public Payments() {
-
     }
 
     public Integer getId() {

@@ -1,4 +1,4 @@
 package com.miniProject.fundriseapp.account;
 
-public class Account {
+public class AccountRepository {
 }
