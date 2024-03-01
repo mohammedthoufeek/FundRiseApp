@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private MessageRepo messagerepo;
+
     @Autowired
     private CommentRepo commentRepo;
 
@@ -58,11 +59,6 @@ public class UserServiceImpl implements UserService {
         }
 
     }
-
-
-
-    }
-
     @Override
     public String signOut(HttpSession httpSession) {
         httpSession.invalidate();
@@ -84,9 +80,6 @@ public class UserServiceImpl implements UserService {
         List<User> users= userRepo.findAll();
         return users;
     }
-
-
-
 
 
 

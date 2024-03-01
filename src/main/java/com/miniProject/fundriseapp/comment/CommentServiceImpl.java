@@ -39,32 +39,6 @@ public class CommentServiceImpl implements CommentService{
     }
 
 
-
-    @Override
-    public Comment getCommentById(Integer id) throws CommentException {
-        Optional <Comment> commentOpt=this.commentRepo.findById(id);
-        if(commentOpt.isEmpty()) throw new CommentException("Enter correct id to find the comment");
-        return this.commentRepo.findById(id).get();
-    }
-
-    @Override
-    public Comment updateComment(Comment comment,Integer userId) throws CommentException {
-        Optional<Comment> commentOpt=this.commentRepo.findById(comment.getId());
-        User userObj = this.userRepo.findById(userId).orElse(null);
-        if(commentOpt.isPresent())
-        {
-            Notification notification=new Notification();
-            notification.setComment(comment);
-            notification.setUser(userObj);
-            notification.setMessage("Your comment has been updated");
-            notification.setDate(LocalDate.now());
-            notification.setTime(LocalTime.now());
-            this.notificationRepo.save(notification);
-            return this.commentRepo.save(comment);
-        }
-        else throw new CommentException("Comment id is incorrect");
-    }
-
 //    @Override
 //    public Comment getCommentById(Integer id) throws CommentException {
 //        Optional <Comment> commentOpt=this.commentRepo.findById(id);
@@ -90,12 +64,12 @@ public class CommentServiceImpl implements CommentService{
         else throw new CommentException("Given id is incorrect to delete");
     }
 
-    @Override
-    public List<Comment> getAllComments() throws CommentException {
-        List<Comment> commentOpt=this.commentRepo.findAll();
-        if(commentOpt.isEmpty()) throw new CommentException("Please Create some Comment to view!!!");
-        return this.commentRepo.findAll();
-    }
+//    @Override
+//    public List<Comment> getAllComments() throws CommentException {
+//        List<Comment> commentOpt=this.commentRepo.findAll();
+//        if(commentOpt.isEmpty()) throw new CommentException("Please Create some Comment to view!!!");
+//        return this.commentRepo.findAll();
+//    }
 
     @Override
     public Comment updateMessage(Integer commentId, String message) throws CommentException {
