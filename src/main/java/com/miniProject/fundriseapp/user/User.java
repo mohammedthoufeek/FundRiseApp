@@ -3,6 +3,7 @@ package com.miniProject.fundriseapp.user;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.miniProject.fundriseapp.notification.Notification;
 import com.miniProject.fundriseapp.payments.Payments;
@@ -95,9 +96,8 @@ public class User{
         this.notification = notification;
     }
 
-    public Integer getId()
-    {
-        return this.id;
+    public Integer getId() {
+        return id;
     }
 
     public void setId(Integer id) {

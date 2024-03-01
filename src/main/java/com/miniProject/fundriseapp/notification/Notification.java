@@ -1,34 +1,23 @@
 package com.miniProject.fundriseapp.notification;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.miniProject.fundriseapp.comment.Comment;
 import com.miniProject.fundriseapp.post.Post;
 import com.miniProject.fundriseapp.user.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Optional;
 
 @Entity
 public class Notification {
 
   @Id
-    @GeneratedValue
+    //@GeneratedValue
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne
+    @OneToOne
     private Post post;
-    @ManyToOne
-    private Comment comment;
-
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
    private  String message;
     private LocalDate date;
     private LocalTime time;
@@ -71,14 +60,6 @@ public class Notification {
         return post;
     }
 
-    public Comment getComment() {
-        return comment;
-    }
-
-    public void setComment(Comment comment) {
-        this.comment = comment;
-    }
-
     public void setPost(Post post) {
         this.post = post;
     }
@@ -115,6 +96,4 @@ public class Notification {
                 ", post=" + post +
                 '}';
     }
-
-
 }

@@ -8,9 +8,9 @@ public interface PostService {
 
     Post getPostById(Integer id) throws PostException;
 
-    Post updatePost(Post post,Integer userId) throws PostException;
+    Post updatePost(Post post) throws PostException;
 
-    Post deletePostById(Integer id,Integer userId) throws PostException;
+    Post deletePostById(Integer id) throws PostException;
 
     List<Post> getAllPost() throws PostException ;
 
