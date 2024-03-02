@@ -4,9 +4,7 @@ package com.miniProject.fundriseapp.user;
 
 import jakarta.servlet.http.HttpSession;
 
-import com.miniProject.fundriseapp.comment.Comment;
 import com.miniProject.fundriseapp.comment.CommentRepo;
-import com.miniProject.fundriseapp.post.Post;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +12,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,6 +27,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private CommentRepo commentRepo;
+    @Autowired
+    private MessageRepo messageRepo;
+
+
+
+
 
 
     @Override
@@ -59,6 +60,11 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+
+
+    }
+
     @Override
     public String signOut(HttpSession httpSession) {
         httpSession.invalidate();
@@ -161,6 +167,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<PersonalMessage> getallpersonalMessage() {
         return this.personalMessageRepo.findAll();
+    }
+
+    public Message editMessage(MessageDTO messageDTO) throws UserException {
+        User userObj = this.userRepo.findById(messageDTO.getUserId()).get();
+
+        Message messageObj = this.messageRepo.findById(messageDTO.getMessageId()).get();
+
+        if (userObj.getId() != messageObj.getUser().getId()) throw new UserException("User can't edit");
+        messageObj.setMessage(messageDTO.getMessage());
+        return this.messageRepo.save(messageObj);
     }
 
 
