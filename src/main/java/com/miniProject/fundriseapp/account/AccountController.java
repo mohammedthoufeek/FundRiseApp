@@ -16,8 +16,8 @@ public class AccountController {
     }
 
     @PatchMapping("account")
-    public Boolean updateAccount(@PathVariable Integer id, String name) throws AccountException {
-        return this.accountService.updateAccountNameById(id,name);
+    public Account updateAccount(@RequestBody Integer id, Account account) throws AccountException {
+        return this.accountService.updateAccountNameById(id,account);
     }
 
     @GetMapping("account/{id}")

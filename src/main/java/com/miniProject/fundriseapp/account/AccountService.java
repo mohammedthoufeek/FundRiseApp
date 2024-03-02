@@ -11,7 +11,7 @@ public interface AccountService {
     Double depositFundsById(Integer accountId, Double amount) throws AccountException;
 
     //Double withdrawAllFunds();
-    Boolean updateAccountNameById(Integer accountId, String name) throws AccountException;
+    Account updateAccountNameById(Integer accountId, Account account) throws AccountException;
     //delete
     Account deleteAccountById(Integer accountId);
 

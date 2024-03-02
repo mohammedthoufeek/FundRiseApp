@@ -1,7 +1,10 @@
 package com.miniProject.fundriseapp.account;
 
+import com.miniProject.fundriseapp.post.Post;
+import com.miniProject.fundriseapp.post.PostException;
 import com.miniProject.fundriseapp.user.User;
 import com.miniProject.fundriseapp.user.UserRepo;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +15,15 @@ public class AccountServiceImpl implements AccountService{
 
     @Autowired
     private AccountRepo accountRepo;
+    @Autowired
     private UserRepo userRepo;
 
     @Override
     public Account createAccount(Account newAccount, Integer userId) throws AccountException {
-        Account accountOpt = this.accountRepo.findById(newAccount.getId()).get();
         User user = this.userRepo.findById(userId).get();
-        if(accountOpt != null)
-            throw new AccountException("Id already exists :"+newAccount.getId());
+        String hashedCvv = BCrypt.hashpw(newAccount.getCvv(),BCrypt.gensalt());
+        newAccount.setCvv(hashedCvv);
         newAccount.setUser(user);
-        //accountOpt = accountRepo.save(newAccount);
-        //user.setAccountDetails(accountOpt);
         return this.accountRepo.save(newAccount);
     }
 
@@ -54,16 +55,23 @@ public class AccountServiceImpl implements AccountService{
         return null;
     } */
 
-    @Override
-    public Boolean updateAccountNameById(Integer accountId, String name) throws AccountException {
-        Account account = this.accountRepo.findById(accountId).get();
-        if(account == null)
+
+    /*public Boolean updateAccountNameById(Integer accountId, Account account) throws AccountException {
+        Account account1 = this.accountRepo.findById(accountId).get();
+        if(account1 == null)
             throw new AccountException("Account id does not exist: "+accountId);
-        account.setAccountName(name);
-        if(this.accountRepo.save(account).getId()==accountId)
+        account1.setAccountName(account1.getAccountName());
+        if(this.accountRepo.save(account1).getId()==accountId)
             return true;
         return false;
+    }*/
+    @Override
+    public Account updateAccountNameById(Integer accountId, Account account)throws AccountException {
+        Optional<Account> accountOpt =this.accountRepo.findById(account.getId());
+        if(accountOpt.isPresent()) return this.accountRepo.save(account);
+        else throw new AccountException("Post not found to update");
     }
+
 
     @Override
     public Account deleteAccountById(Integer accountId) {

@@ -7,6 +7,7 @@ import com.miniProject.fundriseapp.post.Post;
 import com.miniProject.fundriseapp.post.PostRepo;
 import com.miniProject.fundriseapp.user.User;
 import com.miniProject.fundriseapp.user.UserRepo;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class PaymentServiceImpl implements PaymentService {
     private PostRepo postRepo;
 
     @Override
-    public Payments addPayments(PaymentDto paymentDto) throws PaymentsException {
+    public Payments addPayments(PaymentDto paymentDto) {
         User user = this.userRepo.findById(paymentDto.getUserId()).get();
         Account account = user.getAccountDetails();
         Post postObj = this.postRepo.findById(paymentDto.getPostId()).get();
