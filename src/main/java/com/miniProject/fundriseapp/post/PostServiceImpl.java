@@ -13,12 +13,18 @@ import java.util.Optional;
 @Service
 public class PostServiceImpl implements PostService {
 
-    @Autowired
+@Autowired
     private PostRepo postrepo;
 @Autowired
     private CommentRepo commentRepo;
 @Autowired
     private UserRepo userRepo;
+
+    public PostServiceImpl(PostRepo postRepo, CommentRepo commentRepo, UserRepo userRepo) {
+        this.postrepo = postRepo;
+        this.commentRepo = commentRepo;
+        this.userRepo = userRepo;
+    }
 
     @Override
     public Post createPost(Integer userId, Post newPost) throws PostException{
@@ -44,8 +50,8 @@ public class PostServiceImpl implements PostService {
     public Post getPostById(Integer id)throws PostException {
         Optional<Post> postOpt=this.postrepo.findById(id);
         if(postOpt.isPresent()) {
-            System.out.println("getpost"+ this.postrepo.findById(id).get());
-            return this.postrepo.findById(id).get();
+            System.out.println("getpost"+ postOpt);
+            return postOpt.get();
         }
         else throw new PostException("No post was created yet!!!");
     }
@@ -71,7 +77,7 @@ public class PostServiceImpl implements PostService {
     public List<Post> getAllPost()throws PostException {
         List<Post> postOpt=this.postrepo.findAll();
         if(postOpt.isEmpty()) throw new PostException("No post was created");
-        return this.postrepo.findAll();
+        return postOpt;
     }
 
 

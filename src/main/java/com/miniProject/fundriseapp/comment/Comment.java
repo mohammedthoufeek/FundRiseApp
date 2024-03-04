@@ -30,7 +30,7 @@ public class Comment {
         this.date=LocalDate.now();
     }
 
-    public Comment(Integer id, String message, LocalTime time, LocalDate date) {
+    public Comment(Integer id, String message, LocalDate date) {
         this.id = id;
         this.message = message;
 //        this.time = LocalTime.now();

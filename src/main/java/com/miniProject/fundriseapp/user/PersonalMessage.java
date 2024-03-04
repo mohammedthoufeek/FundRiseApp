@@ -32,6 +32,12 @@ public class PersonalMessage {
         this.messageList = messageList;
     }
 
+    public PersonalMessage(User user1, User user2) {
+        this.user1=user1;
+        this.user2=user2;
+    }
+
+
     public Integer getId() {
         return id;
     }

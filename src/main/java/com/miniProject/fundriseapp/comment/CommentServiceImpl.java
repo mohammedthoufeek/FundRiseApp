@@ -22,6 +22,13 @@ public class CommentServiceImpl implements CommentService{
     @Autowired
     private UserRepo userRepo;
 
+
+    public CommentServiceImpl(CommentRepo commentRepo, PostRepo postRepo, UserRepo userRepo) {
+        this.commentRepo = commentRepo;
+        this.postRepo = postRepo;
+        this.userRepo = userRepo;
+    }
+
     @Override
     public String createComment(CommentDto commentDto) throws CommentException {
         Post postObj=this.postRepo.findById(commentDto.getPostId()).get();
@@ -35,7 +42,7 @@ public class CommentServiceImpl implements CommentService{
         System.out.println(commentObj);
         postObj.getComment().add(commentOb);
         this.postRepo.save(postObj);
-        return "Comment Created Successfull";
+        return "Comment Created Successfully";
     }
 
 
@@ -43,7 +50,7 @@ public class CommentServiceImpl implements CommentService{
     public Comment getCommentById(Integer id) throws CommentException {
         Optional <Comment> commentOpt=this.commentRepo.findById(id);
         if(commentOpt.isEmpty()) throw new CommentException("Enter correct id to find the comment");
-        return this.commentRepo.findById(id).get();
+        return commentOpt.get();
     }
 
     @Override
@@ -68,13 +75,13 @@ public class CommentServiceImpl implements CommentService{
     public List<Comment> getAllComments() throws CommentException {
         List<Comment> commentOpt=this.commentRepo.findAll();
         if(commentOpt.isEmpty()) throw new CommentException("Please Create some Comment to view!!!");
-        return this.commentRepo.findAll();
+        return commentOpt;
     }
 
     @Override
     public Comment updateMessage(Integer commentId, String message) throws CommentException {
         Optional<Comment> commentOpt=commentRepo.findById(commentId);
-        if(commentOpt.isPresent()) throw new CommentException("Comment Id is not wrong");
+        //if(commentOpt.isPresent()) throw new CommentException("Comment Id is not wrong");
         Comment comment=commentOpt.get();
         comment.setMessage(message);
         return this.commentRepo.save(comment);
