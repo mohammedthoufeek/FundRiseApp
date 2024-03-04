@@ -195,6 +195,4 @@ public class User{
                 '}';
     }
 
-
-
 }
