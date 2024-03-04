@@ -2,6 +2,7 @@ package com.miniProject.fundriseapp.account;
 
 public interface AccountService {
 
+
     //create account
     Account createAccount(Account newAccount, Integer userId) throws AccountException;
 
@@ -16,3 +17,4 @@ public interface AccountService {
     Account deleteAccountById(Integer accountId);
 
 }
+

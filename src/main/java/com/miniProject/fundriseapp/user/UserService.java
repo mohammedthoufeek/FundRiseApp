@@ -23,5 +23,4 @@ public interface UserService {
    PersonalMessage getpersonalMessage(Integer userid1,Integer userid2);
 
    List<PersonalMessage> getallpersonalMessage();
-   public Message editMessage(MessageDTO message) throws UserException;
 }

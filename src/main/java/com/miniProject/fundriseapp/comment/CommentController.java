@@ -15,12 +15,6 @@ public class CommentController {
         return this.commentService.createComment(commentDto);
     }
 
-
-    @PutMapping("comment")
-    public Comment updateComment(@RequestBody Comment comment,Integer userId) throws CommentException{
-        return this.commentService.updateComment(comment,userId);
-    }
-
 //    @PutMapping("comment")
 //    public Comment updateComment(@RequestBody Comment comment) throws CommentException{
 //        return this.commentService.updateComment(comment);
@@ -42,8 +36,8 @@ public class CommentController {
 //    }
 
     @DeleteMapping("comment/{id}")
-    public Comment deleteCommentById(@PathVariable Integer id,Integer userId) throws CommentException{
-        return this.commentService.deleteCommentById(id,userId);
+    public Comment deleteCommentById(@PathVariable Integer id) throws CommentException{
+        return this.commentService.deleteCommentById(id);
     }
 
 }
