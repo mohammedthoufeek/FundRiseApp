@@ -28,8 +28,6 @@ public class PaymentController {
         return this.paymentService.getPaymentById(id);
     }
 
-
-
 }
 
 
