@@ -1,4 +1,4 @@
 package com.miniProject.fundriseapp.payments;
 
-public class PaymentsException {
+public class PaymentsException extends Throwable {
 }
