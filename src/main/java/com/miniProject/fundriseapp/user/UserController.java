@@ -11,6 +11,7 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
     @PostMapping("user")
     public User createuser(@RequestBody User user) throws UserException {
         return this.userService.register(user);

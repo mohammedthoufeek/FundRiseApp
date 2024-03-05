@@ -25,8 +25,8 @@ public class CommentServiceImpl implements CommentService{
 
     @Autowired
     private UserRepo userRepo;
-@Autowired
-private NotificationRepo notificationRepo;
+    @Autowired
+    private NotificationRepo notificationRepo;
     @Override
     public String createComment(CommentDto commentDto) throws CommentException {
         Post postObj=this.postRepo.findById(commentDto.getPostId()).get();

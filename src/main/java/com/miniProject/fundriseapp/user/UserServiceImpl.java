@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findByEmail(signInRequest.getEmail());
         if (user != null) {
             if (BCrypt.checkpw(signInRequest.getPassword(), user.getPassword())){
-            httpSession.setAttribute("userId", user.getId());
-            return user.getId();}else{
+                httpSession.setAttribute("userId", user.getId());
+                return user.getId();}else{
                 throw  new UserException("Password not matches");
             }
         } else {
