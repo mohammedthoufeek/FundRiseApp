@@ -1,5 +1,7 @@
 package com.miniProject.fundriseapp.payments;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.miniProject.fundriseapp.post.Post;
 import com.miniProject.fundriseapp.user.User;
 import jakarta.persistence.*;
@@ -8,9 +10,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Payments {
    @Id
-    //@GeneratedValue
+    @GeneratedValue
     private Integer id;
     private double amount;
     private LocalDate date;
@@ -37,6 +42,10 @@ public class Payments {
         this.time = time;
         this.user = user;
         this.post = post;
+    }
+
+    public Payments() {
+
     }
 
     public Integer getId() {
