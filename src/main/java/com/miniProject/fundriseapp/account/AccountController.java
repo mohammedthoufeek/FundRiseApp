@@ -1,5 +1,8 @@
 package com.miniProject.fundriseapp.account;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 public class AccountController {
 
     @Autowired
