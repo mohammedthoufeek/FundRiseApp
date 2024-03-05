@@ -1,9 +1,13 @@
 package com.miniProject.fundriseapp.account;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.miniProject.fundriseapp.user.User;
 import jakarta.persistence.*;
-
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Account {
     @Id
     @GeneratedValue
@@ -13,7 +17,7 @@ public class Account {
     private Integer AccountNumber;
     private Integer cvv;
 
-    private Integer BankName;
+    private String BankName;
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -21,7 +25,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, Integer bankName, User user) {
+    public Account(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, String bankName, User user) {
         this.id = id;
         this.balance = balance;
         AccountName = accountName;
@@ -71,11 +75,11 @@ public class Account {
         this.cvv = cvv;
     }
 
-    public Integer getBankName() {
+    public String getBankName() {
         return BankName;
     }
 
-    public void setBankName(Integer bankName) {
+    public void setBankName(String bankName) {
         BankName = bankName;
     }
 

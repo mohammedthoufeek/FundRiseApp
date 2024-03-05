@@ -9,7 +9,7 @@ public interface AccountService {
     //read account
     Account getAccountById(Integer accountId);
     //update account
-    Double depositFundsById(Integer accountId, Double amount) throws AccountException;
+
 
     //Double withdrawAllFunds();
     Boolean updateAccountNameById(Integer accountId, String name) throws AccountException;

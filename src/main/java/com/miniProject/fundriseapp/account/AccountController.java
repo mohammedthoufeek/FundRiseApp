@@ -23,15 +23,8 @@ public class AccountController {
         return this.accountService.getAccountById(accountId);
     }
 
-    @PatchMapping("account/{id}")
-    public Double depositFundsById(@RequestBody Integer accountId, Double amount) throws AccountException {
-        return this.accountService.depositFundsById(accountId,amount);
-    }
 
-    /*@PutMapping("account")
-    public Double withdrawAllFunds(){
-        return this.accountService.withdrawAllFunds();
-    }*/
+
 
     @DeleteMapping("account/{id}")
     public Account deleteAccountById(@PathVariable("id") Integer accountId){

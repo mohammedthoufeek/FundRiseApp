@@ -9,6 +9,7 @@ import com.miniProject.fundriseapp.user.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +32,10 @@ public class PaymentServiceImpl implements PaymentService {
         Post postObj = this.postRepo.findById(paymentDto.getPostId()).get();
         Payments paymentsObj1 = new Payments(paymentDto.getAmount(), paymentDto.getDate(), paymentDto.getTime(), user, postObj );
         account.setBalance(account.getBalance()+paymentDto.getAmount());
+        paymentsObj1.setTime(LocalTime.now());
         Payments paymentsObj2 = this.paymentRepo.save(paymentsObj1);
         postObj.getPayments().add(paymentsObj2);
+        postObj.setAmountReceived(postObj.getAmountReceived()+paymentDto.getAmount());
         this.postRepo.save(postObj);
         this.accountRepo.save(account);
         return paymentsObj2;
