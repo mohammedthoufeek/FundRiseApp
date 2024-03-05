@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private MessageRepo messagerepo;
-
     @Autowired
     private CommentRepo commentRepo;
     @Autowired
@@ -58,11 +57,6 @@ public class UserServiceImpl implements UserService {
             throw  new UserException("Email does not  exists");
 
         }
-
-    }
-
-
-
     }
 
     @Override
@@ -86,6 +80,9 @@ public class UserServiceImpl implements UserService {
         List<User> users= userRepo.findAll();
         return users;
     }
+
+
+
 
 
 

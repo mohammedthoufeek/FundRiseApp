@@ -1,7 +1,6 @@
 package com.miniProject.fundriseapp.payments;
 
 import com.miniProject.fundriseapp.account.Account;
-import com.miniProject.fundriseapp.account.AccountDto;
 import com.miniProject.fundriseapp.account.AccountRepo;
 import com.miniProject.fundriseapp.post.Post;
 import com.miniProject.fundriseapp.post.PostRepo;

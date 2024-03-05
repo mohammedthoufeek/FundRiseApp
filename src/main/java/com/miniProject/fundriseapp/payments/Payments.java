@@ -39,10 +39,6 @@ public class Payments {
         this.post = post;
     }
 
-    public Payments() {
-
-    }
-
     public Integer getId() {
         return id;
     }

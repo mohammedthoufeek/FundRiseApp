@@ -55,13 +55,12 @@ private NotificationRepo notificationRepo;
     }
 
 
-//    @Override
-//    public Comment getCommentById(Integer id) throws CommentException {
-//        Optional <Comment> commentOpt=this.commentRepo.findById(id);
-//        if(commentOpt.isEmpty()) throw new CommentException("Enter correct id to find the comment");
-//        return this.commentRepo.findById(id).get();
-//    }
-
+    @Override
+    public Comment getCommentById(Integer id) throws CommentException {
+        Optional <Comment> commentOpt=this.commentRepo.findById(id);
+        if(commentOpt.isEmpty()) throw new CommentException("Enter correct id to find the comment");
+        return this.commentRepo.findById(id).get();
+    }
 
     @Override
     public Comment updateComment(Comment comment,Integer userId) throws CommentException {
@@ -80,13 +79,6 @@ private NotificationRepo notificationRepo;
         }
         else throw new CommentException("Comment id is incorrect");
     }
-
-//    @Override
-//    public Comment updateComment(Comment comment) throws CommentException {
-//        Optional<Comment> commentOpt=this.commentRepo.findById(comment.getId());
-//        if(commentOpt.isPresent()) return this.commentRepo.save(comment);
-//        else throw new CommentException("Comment id is incorrect");
-//    }
 
     @Override
     public Comment deleteCommentById(Integer id,Integer userId) throws CommentException {
@@ -108,12 +100,12 @@ private NotificationRepo notificationRepo;
         else throw new CommentException("Given id is incorrect to delete");
     }
 
-//    @Override
-//    public List<Comment> getAllComments() throws CommentException {
-//        List<Comment> commentOpt=this.commentRepo.findAll();
-//        if(commentOpt.isEmpty()) throw new CommentException("Please Create some Comment to view!!!");
-//        return this.commentRepo.findAll();
-//    }
+    @Override
+    public List<Comment> getAllComments() throws CommentException {
+        List<Comment> commentOpt=this.commentRepo.findAll();
+        if(commentOpt.isEmpty()) throw new CommentException("Please Create some Comment to view!!!");
+        return this.commentRepo.findAll();
+    }
 
     @Override
     public Comment updateMessage(Integer commentId, String message) throws CommentException {

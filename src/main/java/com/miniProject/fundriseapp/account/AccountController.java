@@ -1,9 +1,7 @@
 package com.miniProject.fundriseapp.account;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 @RestController
 public class AccountController {
 
@@ -11,7 +9,7 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping("account")
-    public Account createAccount(@RequestBody Account account,Integer id) throws AccountException{
+    public Account createAccount(@RequestBody Account account, Integer id) throws AccountException{
         return this.accountService.createAccount(account,id);
     }
 
@@ -40,3 +38,4 @@ public class AccountController {
         return this.accountService.deleteAccountById(accountId);
     }
 }
+
