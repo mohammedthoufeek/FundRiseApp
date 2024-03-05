@@ -76,9 +76,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getProfiles() {
-
+    public List<User> getProfiles()throws UserException {
         List<User> users= userRepo.findAll();
+        if(users.isEmpty()) throw new UserException("Need to create new user");
         return users;
     }
 
@@ -97,11 +97,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public String createConversation(ChatDTO chatDTO) throws UserException {
         User user1 = this.userRepo.findById(chatDTO.getUserid1()).get();
+
         User user2 = this.userRepo.findById(chatDTO.getUserid2()).get();
+
         //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        if (user1 == null || user2 == null) throw new UserException("User does not exist");
         PersonalMessage personalMessage1=this.personalMessageRepo.findByUser1AndUser2(user1,user2);
         PersonalMessage personalMessage2=this.personalMessageRepo.findByUser1AndUser2(user2,user1);
-        if (user1 == null || user2 == null) throw new UserException("User does not exist");
 
         Message message=new Message();
         message.setDate(LocalDate.now());

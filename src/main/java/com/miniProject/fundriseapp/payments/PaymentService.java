@@ -5,7 +5,7 @@ import java.util.List;
 public interface PaymentService {
     Payments addPayments(PaymentDto paymentDto) throws PaymentsException;
 
-    List<Payments> getAllPayments();
+    List<Payments> getAllPayments() throws PaymentsException;
 
-    Payments getPaymentById(Integer id);
+    Payments getPaymentById(Integer id) throws PaymentsException;
 }

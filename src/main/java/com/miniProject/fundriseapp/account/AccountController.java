@@ -19,7 +19,7 @@ public class AccountController {
     }
 
     @GetMapping("account/{id}")
-    public Account getAccountById(@PathVariable("id") Integer accountId){
+    public Account getAccountById(@PathVariable("id") Integer accountId) throws AccountException{
         return this.accountService.getAccountById(accountId);
     }
 
@@ -27,7 +27,7 @@ public class AccountController {
 
 
     @DeleteMapping("account/{id}")
-    public Account deleteAccountById(@PathVariable("id") Integer accountId){
+    public Account deleteAccountById(@PathVariable("id") Integer accountId) throws AccountException{
         return this.accountService.deleteAccountById(accountId);
     }
 }
