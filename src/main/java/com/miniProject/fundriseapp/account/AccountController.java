@@ -14,8 +14,8 @@ public class AccountController {
     }
 
     @PatchMapping("account")
-    public Account updateAccount(@RequestBody Integer id, Account account) throws AccountException {
-        return this.accountService.updateAccountNameById(id,account);
+    public Boolean updateAccount(@PathVariable Integer id, String name) throws AccountException {
+        return this.accountService.updateAccountNameById(id,name);
     }
 
     @GetMapping("account/{id}")
@@ -23,15 +23,8 @@ public class AccountController {
         return this.accountService.getAccountById(accountId);
     }
 
-    @PatchMapping("account/{id}")
-    public Double depositFundsById(@RequestBody Integer accountId, Double amount) throws AccountException {
-        return this.accountService.depositFundsById(accountId,amount);
-    }
 
-    /*@PutMapping("account")
-    public Double withdrawAllFunds(){
-        return this.accountService.withdrawAllFunds();
-    }*/
+
 
     @DeleteMapping("account/{id}")
     public Account deleteAccountById(@PathVariable("id") Integer accountId){

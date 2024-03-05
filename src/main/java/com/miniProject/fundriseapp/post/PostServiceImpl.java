@@ -47,9 +47,6 @@ public class PostServiceImpl implements PostService {
             String message="post";
 
 
-
-            //Sending Notification to user after posting
-
             Notification notification=new Notification();
             notification.setPost(postObj);
             notification.setUser(userObj);
@@ -57,14 +54,6 @@ public class PostServiceImpl implements PostService {
             notification.setDate(LocalDate.now());
             notification.setTime(LocalTime.now());
             this.notificationRepo.save(notification);
-
-//            Notification notification=new Notification();
-//            notification.setPost(postObj);
-//            notification.setUser(userObj);
-//            notification.setMessage("Your post has been published");
-//            notification.setDate(LocalDate.now());
-//            notification.setTime(LocalTime.now());
-//            this.notificationRepo.save(notification);
 
             return postObj;
         } else {

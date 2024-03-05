@@ -15,7 +15,7 @@ import java.time.LocalTime;
         property = "id")
 public class Payments {
    @Id
-    //@GeneratedValue
+    @GeneratedValue
     private Integer id;
     private double amount;
     private LocalDate date;
@@ -42,6 +42,10 @@ public class Payments {
         this.time = time;
         this.user = user;
         this.post = post;
+    }
+
+    public Payments() {
+
     }
 
     public Integer getId() {

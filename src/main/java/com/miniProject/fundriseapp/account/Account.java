@@ -15,7 +15,7 @@ public class Account {
     private double balance;
     private String AccountName;
     private Integer AccountNumber;
-    private String cvv;
+    private Integer cvv;
 
     private String BankName;
     @OneToOne
@@ -25,7 +25,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(Integer id, double balance, String accountName, Integer accountNumber, String cvv, String bankName, User user) {
+    public Account(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, String bankName, User user) {
         this.id = id;
         this.balance = balance;
         AccountName = accountName;
@@ -67,11 +67,11 @@ public class Account {
         AccountNumber = accountNumber;
     }
 
-    public String getCvv() {
+    public Integer getCvv() {
         return cvv;
     }
 
-    public void setCvv(String cvv) {
+    public void setCvv(Integer cvv) {
         this.cvv = cvv;
     }
 
