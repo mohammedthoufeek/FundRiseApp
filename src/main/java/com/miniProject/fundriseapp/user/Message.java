@@ -1,22 +1,47 @@
 package com.miniProject.fundriseapp.user;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Message {
     @Id
-    //@GeneratedValue
+    @GeneratedValue
     Integer id;
     private LocalDate date;
-    private LocalDate time;
+    private LocalTime time;
     private String message;
     @ManyToOne
     @JoinColumn(name = "messages")
     private PersonalMessage personalMessage;
+    @ManyToOne
+    private User user;
 
-    public Message(Integer id, LocalDate date, LocalDate time, String message, PersonalMessage personalMessage) {
+    public Message(Integer id, LocalDate date, LocalTime time, String message, PersonalMessage personalMessage, User user) {
+        this.id = id;
+        this.date = date;
+        this.time = time;
+        this.message = message;
+        this.personalMessage = personalMessage;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Message(Integer id, LocalDate date, LocalTime time, String message, PersonalMessage personalMessage) {
         this.id = id;
         this.date = date;
         this.time = time;
@@ -43,11 +68,11 @@ public class Message {
         this.date = date;
     }
 
-    public LocalDate getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(LocalDate time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 

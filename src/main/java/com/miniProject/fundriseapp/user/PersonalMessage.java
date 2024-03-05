@@ -1,18 +1,23 @@
 package com.miniProject.fundriseapp.user;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class PersonalMessage {
   @Id
-    //@GeneratedValue
+    @GeneratedValue
     Integer id;
-    @OneToOne
+    @ManyToOne
     private User user1;
-    @OneToOne
+    @ManyToOne
     private User user2;
     @OneToMany(mappedBy = "personalMessage",cascade = CascadeType.ALL)
     List<Message> messageList=new ArrayList<>();

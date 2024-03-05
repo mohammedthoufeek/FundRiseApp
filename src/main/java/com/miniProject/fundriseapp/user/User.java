@@ -2,6 +2,9 @@ package com.miniProject.fundriseapp.user;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.miniProject.fundriseapp.account.Account;
 import com.miniProject.fundriseapp.notification.Notification;
 import com.miniProject.fundriseapp.payments.Payments;
 import com.miniProject.fundriseapp.post.Post;
@@ -12,9 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class User{
     @Id
-   // @GeneratedValue
+    @GeneratedValue
     private Integer id;
     private String name;
     private LocalDate dob;
@@ -23,14 +29,18 @@ public class User{
     private Integer age;
 
     public enum Usertype {
-        user,
-        Investor,
-        CharityOrganisation
+        USER,
+        INVESTOR,
+        CHARITY
     }
     @Enumerated(EnumType.STRING)
     private Usertype usertype;
+
+    private String email;
+    private String password;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-    private AccountDetails accountDetails;
+    private Account accountDetails;
+
 
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
@@ -44,7 +54,23 @@ public class User{
     public User() {
     }
 
-    public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype) {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype, String email, String password) {
         this.id = id;
         this.name = name;
         this.dob = dob;
@@ -52,9 +78,11 @@ public class User{
         this.phonenumber = phonenumber;
         this.age = age;
         this.usertype = usertype;
+        this.email = email;
+        this.password = password;
     }
 
-    public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype, AccountDetails accountDetails, List<Post> post, List<Payments> payments, List<Notification> notification) {
+    public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype, Account accountDetails, List<Post> post, List<Payments> payments, List<Notification> notification) {
         this.id = id;
         this.name = name;
         this.dob = dob;
@@ -68,8 +96,9 @@ public class User{
         this.notification = notification;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getId()
+    {
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -124,11 +153,11 @@ public class User{
         this.usertype = usertype;
     }
 
-    public AccountDetails getAccountDetails() {
+    public Account getAccountDetails() {
         return accountDetails;
     }
 
-    public void setAccountDetails(AccountDetails accountDetails) {
+    public void setAccountDetails(Account accountDetails) {
         this.accountDetails = accountDetails;
     }
 
@@ -166,4 +195,7 @@ public class User{
                 ", usertype=" + usertype +
                 '}';
     }
+
+
+
 }

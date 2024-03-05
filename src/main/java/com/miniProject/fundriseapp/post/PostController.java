@@ -10,8 +10,8 @@ public class PostController {
     @Autowired
     PostService postService;
     @PostMapping("post")
-    public String createPost(@RequestBody PostDto postDto)throws PostException{
-        return this.postService.createPost(postDto.getUserId(),postDto.post);
+    public Post createPost(@RequestBody Integer user_id,Post post)throws PostException{
+        return this.postService.createPost(user_id,post);
     }
 
     @GetMapping("post/{id}")
@@ -21,8 +21,8 @@ public class PostController {
 
 
     @PutMapping("post")
-    public Post updatePost(@RequestBody Post post)throws PostException{
-        return this.postService.updatePost(post);
+    public Post updatePost(@RequestBody Post post,Integer userId)throws PostException{
+        return this.postService.updatePost(post,userId);
     }
 
     @GetMapping("posts")
@@ -30,8 +30,8 @@ public class PostController {
         return this.postService.getAllPost();
     }
     @DeleteMapping("post/{id}")
-    public Post deletePostById(@PathVariable Integer id) throws PostException{
-        return this.postService.deletePostById(id);
+    public Post deletePostById(@PathVariable Integer id,Integer userId) throws PostException{
+        return this.postService.deletePostById(id,userId);
     }
 
 

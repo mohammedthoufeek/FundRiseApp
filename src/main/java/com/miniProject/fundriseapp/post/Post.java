@@ -1,6 +1,7 @@
 package com.miniProject.fundriseapp.post;
 
 
+import com.fasterxml.jackson.annotation.*;
 import com.miniProject.fundriseapp.comment.Comment;
 import com.miniProject.fundriseapp.payments.Payments;
 import com.miniProject.fundriseapp.user.User;
@@ -10,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 //@Table(name = "Post",schema = "public")
 public class Post {
     @Id
@@ -32,7 +36,7 @@ public class Post {
     }
     @Enumerated(EnumType.STRING)
     private Post.postType postType;
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comment=new ArrayList<>();
     private double amountreceived;
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
@@ -40,8 +44,6 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-
     public Post(Integer id, String title, String urlField, String cause, String details, double amountNeeded) {
         this.id = id;
         this.title = title;
