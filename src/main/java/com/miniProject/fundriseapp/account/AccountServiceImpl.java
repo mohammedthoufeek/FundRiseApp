@@ -23,13 +23,13 @@ public class AccountServiceImpl implements AccountService{
         return this.accountRepo.save(newAccount);
     }
     @Override
-    public Account getAccountById(Integer userId) { // find by userId - exception handling(check user id and account)
+    public Account getAccountById(Integer userId) throws AccountException { // find by userId - exception handling(check user id and account)
+
         User user = this.userRepo.findById(userId).get();
-        return this.accountRepo.findByUser(user);
+         Account account=this.accountRepo.findByUser(user);
+        if(userId!=account.getId()) throw new AccountException("User id doesn't match to get account");
+        return account;
     }
-
-
-
 
 
     @Override
@@ -44,8 +44,9 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account deleteAccountById(Integer accountId) {
+    public Account deleteAccountById(Integer accountId) throws AccountException {
         Optional<Account> accountOpt = this.accountRepo.findById(accountId);
+        if(accountOpt.isEmpty()) throw new AccountException("Account not present to delete");
         this.accountRepo.deleteById(accountId);
         return accountOpt.get();
     }

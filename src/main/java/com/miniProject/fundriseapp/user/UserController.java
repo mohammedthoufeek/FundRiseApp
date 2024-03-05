@@ -39,7 +39,7 @@ public class UserController {
         return this.userService.getProfile(httpSession);
     }
     @GetMapping("profiles")
-    public List<User> getProfile() throws UserException {
+    public List<User> getProfiles() throws UserException {
         return this.userService.getProfiles();
     }
     @GetMapping("profiles/charity")
