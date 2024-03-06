@@ -2,6 +2,8 @@ package com.miniProject.fundriseapp.payments;
 
 import com.miniProject.fundriseapp.account.Account;
 import com.miniProject.fundriseapp.account.AccountRepo;
+import com.miniProject.fundriseapp.notification.Notification;
+import com.miniProject.fundriseapp.notification.NotificationRepo;
 import com.miniProject.fundriseapp.post.Post;
 import com.miniProject.fundriseapp.post.PostRepo;
 import com.miniProject.fundriseapp.user.User;
@@ -9,6 +11,7 @@ import com.miniProject.fundriseapp.user.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +27,8 @@ public class PaymentServiceImpl implements PaymentService {
     private UserRepo userRepo;
     @Autowired
     private PostRepo postRepo;
+    @Autowired
+    private NotificationRepo notificationRepo;
 
     @Override
     public Payments addPayments(PaymentDto paymentDto) throws PaymentsException {
@@ -38,6 +43,26 @@ public class PaymentServiceImpl implements PaymentService {
         postObj.setAmountReceived(postObj.getAmountReceived()+paymentDto.getAmount());
         this.postRepo.save(postObj);
         this.accountRepo.save(account);
+
+
+
+        Notification notification=new Notification();
+
+        notification.setPost(postObj);
+        Optional<Post> UserId = this.postRepo.findById(postObj.getUser().getId());
+        Notification notification1=new Notification(user,postObj,"Amount has been Debited",LocalDate.now(),LocalTime.now());
+        this.notificationRepo.save(notification1);
+        notification1=new Notification(UserId.get().getUser(),postObj,"Amount has been Credited",LocalDate.now(),LocalTime.now());
+        this.notificationRepo.save(notification1);
+//        notification.setMessage("Amount has been Credited");
+//        notification.setUser(user);
+//        notification.setMessage("Amount has been Debited");
+        //notification.setUser(postObj.getUser());
+        //notification.setMessage("Amount has been Debited");
+//        notification.setDate(LocalDate.now());
+//        notification.setTime(LocalTime.now());
+//        this.notificationRepo.save(notification);
+
         return paymentsObj2;
     }
 
