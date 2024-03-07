@@ -42,8 +42,8 @@ public class Notification {
         this.post = post;
     }
 
-    public Notification(Integer id, User user, Post post, String message, LocalDate date, LocalTime time) {
-        this.id = id;
+    public Notification( User user, Post post, String message, LocalDate date, LocalTime time) {
+
         this.user = user;
         this.post = post;
         this.message = message;
