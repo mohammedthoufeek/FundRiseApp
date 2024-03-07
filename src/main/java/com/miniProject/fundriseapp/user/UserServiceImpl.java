@@ -23,13 +23,11 @@ public class UserServiceImpl implements UserService {
     private PersonalMessageRepo personalMessageRepo;
 
     @Autowired
-    private MessageRepo messagerepo;
-
-    @Autowired
-
-    private CommentRepo commentRepo;
-    @Autowired
     private MessageRepo messageRepo;
+
+    @Autowired
+    private CommentRepo commentRepo;
+
 
 
 
@@ -116,20 +114,20 @@ public class UserServiceImpl implements UserService {
             personalMessage.setUser2(user2);
             PersonalMessage personalMessage3=this.personalMessageRepo.save(personalMessage);
             message.setPersonalMessage(personalMessage3);
-            Message message1=this.messagerepo.save(message);
+            Message message1=this.messageRepo.save(message);
             personalMessage3.getMessageList().add(message1);
             this.personalMessageRepo.save(personalMessage3);
             return "successfull";
         }else{
             if(personalMessage1==null){
                 message.setPersonalMessage(personalMessage2);
-                Message message1=this.messagerepo.save(message);
+                Message message1=this.messageRepo.save(message);
                 personalMessage2.getMessageList().add(message1);
                 this.personalMessageRepo.save(personalMessage2);
             }
             if(personalMessage2==null){
                 message.setPersonalMessage(personalMessage1);
-                Message message1=this.messagerepo.save(message);
+                Message message1=this.messageRepo.save(message);
                 personalMessage1.getMessageList().add(message1);
                 this.personalMessageRepo.save(personalMessage1);
             }
