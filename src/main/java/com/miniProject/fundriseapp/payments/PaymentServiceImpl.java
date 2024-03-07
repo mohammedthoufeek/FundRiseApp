@@ -47,7 +47,6 @@ public class PaymentServiceImpl implements PaymentService {
 
 
         Notification notification=new Notification();
-
         notification.setPost(postObj);
         Optional<Post> UserId = this.postRepo.findById(postObj.getUser().getId());
         Notification notification1=new Notification(user,postObj,"Amount has been Debited",LocalDate.now(),LocalTime.now());
