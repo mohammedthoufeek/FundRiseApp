@@ -184,12 +184,6 @@ public class UserServiceImpl implements UserService {
         return userRepo.findByUsertype(userTypeEnum);
 
     }
-
-
-
-
-
-
     public Message editMessage(MessageDTO messageDTO) throws UserException {
         User userObj = this.userRepo.findById(messageDTO.getUserId()).get();
 
@@ -199,9 +193,6 @@ public class UserServiceImpl implements UserService {
         messageObj.setMessage(messageDTO.getMessage());
         return this.messageRepo.save(messageObj);
     }
-
-
-
 }
 
 
