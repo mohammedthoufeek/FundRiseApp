@@ -1,4 +1,4 @@
-package com.miniProject.fundriseapp.payments;
+package com.miniProject.fundriseapp.transactions;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
-public class Payments {
+public class Transaction {
    @Id
     @GeneratedValue
     private Integer id;
@@ -28,14 +28,14 @@ public class Payments {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public Payments(Integer id, double amount, LocalDate date, LocalTime time) {
+    public Transaction(Integer id, double amount, LocalDate date, LocalTime time) {
         this.id = id;
         this.amount = amount;
         this.date = date;
         this.time = time;
     }
 
-    public Payments( double amount, LocalDate date, LocalTime time, User user, Post post) {
+    public Transaction(double amount, LocalDate date, LocalTime time, User user, Post post) {
         this.id = id;
         this.amount = amount;
         this.date = date;
@@ -44,7 +44,7 @@ public class Payments {
         this.post = post;
     }
 
-    public Payments() {
+    public Transaction() {
 
     }
 
