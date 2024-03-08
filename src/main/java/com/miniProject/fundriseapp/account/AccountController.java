@@ -1,5 +1,6 @@
 package com.miniProject.fundriseapp.account;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 @RestController
@@ -9,7 +10,7 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping("account")
-    public Account createAccount(@RequestBody Account account, Integer id) throws AccountException{
+    public Account createAccount(@Valid @RequestBody Account account, Integer id) throws AccountException{
         return this.accountService.createAccount(account,id);
     }
 

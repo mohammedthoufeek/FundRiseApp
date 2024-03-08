@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.miniProject.fundriseapp.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
 @Entity
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -12,11 +14,16 @@ public class Account {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotBlank(message = "balance shouldnot be blank")
     private double balance;
+    @NotBlank(message = "Accountname shouldnot be blank")
     private String AccountName;
+    @NotBlank(message = "Accountnumber shouldnot be blank")
     private Integer AccountNumber;
-    private Integer cvv;
 
+    @NotBlank(message = "cvv shouldnot be blank")
+    private Integer cvv;
+    @NotBlank(message = "BankName shouldnot be blank")
     private String BankName;
     @OneToOne
     @JoinColumn(name = "user_id")

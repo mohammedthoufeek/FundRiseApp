@@ -1,12 +1,13 @@
 package com.miniProject.fundriseapp.user;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
 public interface UserService {
 
-   public User register(User user) throws UserException;
+   public User register(  User user) throws UserException;
    public Integer signIn(SignInRequest signInRequest,HttpSession httpSession) throws UserException;
    public String signOut(HttpSession httpSession);
 

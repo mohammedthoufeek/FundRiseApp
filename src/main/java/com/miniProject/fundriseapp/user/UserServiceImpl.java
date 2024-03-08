@@ -6,15 +6,29 @@ import jakarta.servlet.http.HttpSession;
 
 import com.miniProject.fundriseapp.comment.CommentRepo;
 
+import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
+//@Validated
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userRepo;
@@ -31,12 +45,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private MessageRepo messageRepo;
 
-
-
-
-
     @Override
-    public User register(User user) throws UserException {
+   // @Transactional(rollbackFor = {ValidationException.class})
+    public User register(  User user) throws UserException {
         User email = userRepo.findByEmail(user.getEmail());
         User password=userRepo.findByPassword(user.getPassword());
         if(email!=null)throw  new UserException("Email already exists");
@@ -169,56 +180,7 @@ public class UserServiceImpl implements UserService {
 
 
 
-//    @Override
-//    public String createConversation(ChatDTO chatDTO) throws UserException {
-//        User user1 = this.userRepo.findById(chatDTO.getUserid1()).get();
-//        User user2 = this.userRepo.findById(chatDTO.getUserid2()).get();
-//        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//        PersonalMessage personalMessage1=this.personalMessageRepo.findByUser1AndUser2(user1,user2);
-//        PersonalMessage personalMessage2=this.personalMessageRepo.findByUser1AndUser2(user2,user1);
-//        if (user1 == null || user2 == null) throw new UserException("User does not exist");
-//
-//        Message message=new Message();
-//        message.setDate(LocalDate.now());
-//        message.setTime(LocalTime.now());
-//        message.setMessage(chatDTO.getMessage());
-//        message.setUser(user1);
-//        if(personalMessage1==null && personalMessage2 ==null){
-//            PersonalMessage personalMessage=new PersonalMessage();
-//            personalMessage.setUser1(user1);
-//            personalMessage.setUser2(user2);
-//            PersonalMessage personalMessage3=this.personalMessageRepo.save(personalMessage);
-//            message.setPersonalMessage(personalMessage3);
-//            Message message1=this.messagerepo.save(message);
-//            personalMessage3.getMessageList().add(message1);
-//            this.personalMessageRepo.save(personalMessage3);
-//            return "successfull";
-//        }else{
-//            if(personalMessage1==null){
-//                message.setPersonalMessage(personalMessage2);
-//                Message message1=this.messagerepo.save(message);
-//                personalMessage2.getMessageList().add(message1);
-//                this.personalMessageRepo.save(personalMessage2);
-//            }
-//            if(personalMessage2==null){
-//                message.setPersonalMessage(personalMessage1);
-//                Message message1=this.messagerepo.save(message);
-//                personalMessage1.getMessageList().add(message1);
-//                this.personalMessageRepo.save(personalMessage1);
-//            }
-//            return "successfull";
-//        }
-//
-//    }
-//    @Override
-//    public PersonalMessage getpersonalMessage(Integer userid1, Integer userid2) {
-//
-//    }
 
-//    @Override
-//    public List<PersonalMessage> getallpersonalMessage() {
-//        return this.personalMessageRepo.findAll();
-//    }
 
     public Message editMessage(MessageDTO messageDTO) throws UserException {
         User userObj = this.userRepo.findById(messageDTO.getUserId()).get();
@@ -229,7 +191,6 @@ public class UserServiceImpl implements UserService {
         messageObj.setMessage(messageDTO.getMessage());
         return this.messageRepo.save(messageObj);
     }
-
 
 
 }

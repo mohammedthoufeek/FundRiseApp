@@ -1,5 +1,6 @@
 package com.miniProject.fundriseapp.payments;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @PostMapping("payment")
-    public Payments addPayment(@RequestBody PaymentDto paymentDto) throws PaymentsException {
+    public Payments addPayment(@Valid @RequestBody PaymentDto paymentDto) throws PaymentsException {
         return this.paymentService.addPayments(paymentDto);
     }
 
