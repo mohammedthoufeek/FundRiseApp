@@ -16,6 +16,7 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public Account createAccount(Account newAccount, Integer userId) throws AccountException {
+
         Account accountOpt = this.accountRepo.findById(newAccount.getId()).get();
         User user = this.userRepo.findById(userId).get();
         if(accountOpt != null)

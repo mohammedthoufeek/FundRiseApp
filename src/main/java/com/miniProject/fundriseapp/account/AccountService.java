@@ -15,6 +15,5 @@ public interface AccountService {
     Boolean updateAccountNameById(Integer accountId, String name) throws AccountException;
     //delete
     Account deleteAccountById(Integer accountId);
-
 }
 
