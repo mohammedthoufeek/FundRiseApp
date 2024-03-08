@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.miniProject.fundriseapp.post.Post;
 import com.miniProject.fundriseapp.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,7 +20,10 @@ public class Transaction {
    @Id
     @GeneratedValue
     private Integer id;
+    @NotBlank(message = "title Field shouldnot be blank")
     private double amount;
+    @NotNull(message = "Date of birth cannot be null")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private LocalTime time;
     @ManyToOne

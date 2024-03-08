@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Notification {
 
   @Id
@@ -26,9 +29,7 @@ public class Notification {
     @ManyToOne
     private Comment comment;
 
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
+
    private  String message;
     private LocalDate date;
     private LocalTime time;

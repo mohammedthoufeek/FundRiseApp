@@ -6,6 +6,8 @@ import com.miniProject.fundriseapp.comment.Comment;
 import com.miniProject.fundriseapp.transactions.Transaction;
 import com.miniProject.fundriseapp.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +21,15 @@ public class Post {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotBlank(message = "title Field shouldnot be blank")
     private String title;
+    @NotBlank(message = "UrlField shouldnot be blank")
     private String urlField;
+    @NotBlank(message = "Message shouldnot be blank")
     private String cause;
+    @NotBlank(message = "Details shouldnot be blank")
     private String details;
+    @NotNull(message = "amount shouldnot be blank")
     private double amountNeeded;
 
     public Post() {
@@ -38,6 +45,7 @@ public class Post {
     private Post.postType postType;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comment=new ArrayList<>();
+    @NotNull(message = "amount shouldnot be blank")
     private double amountreceived;
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<Transaction> payments=new ArrayList<>();

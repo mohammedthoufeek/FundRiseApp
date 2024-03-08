@@ -1,5 +1,6 @@
 package com.miniProject.fundriseapp.post;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ public class PostController {
     @Autowired
     PostService postService;
     @PostMapping("post")
-    public Post createPost(@RequestBody Integer user_id,Post post)throws PostException{
+    public Post createPost(@Valid @RequestBody Post post, Integer user_id)throws PostException{
         return this.postService.createPost(user_id,post);
     }
 
@@ -21,7 +22,7 @@ public class PostController {
 
 
     @PutMapping("post")
-    public Post updatePost(@RequestBody Post post,Integer userId)throws PostException{
+    public Post updatePost(@Valid @RequestBody Post post,Integer userId)throws PostException{
         return this.postService.updatePost(post,userId);
     }
 

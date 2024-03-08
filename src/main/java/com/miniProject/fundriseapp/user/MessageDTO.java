@@ -1,8 +1,13 @@
 package com.miniProject.fundriseapp.user;
 
+import jakarta.validation.constraints.NotNull;
+
 public class MessageDTO {
+    @NotNull(message = "userid cannot be null")
     private Integer userId;
+    @NotNull(message = "messageid cannot be null")
     private Integer messageId;
+    @NotNull(message = "message cannot be null")
     private String message;
 
     public MessageDTO() {
