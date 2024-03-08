@@ -3,7 +3,7 @@ package com.miniProject.fundriseapp.post;
 
 import com.fasterxml.jackson.annotation.*;
 import com.miniProject.fundriseapp.comment.Comment;
-import com.miniProject.fundriseapp.payments.Payments;
+import com.miniProject.fundriseapp.transactions.Transaction;
 import com.miniProject.fundriseapp.user.User;
 import jakarta.persistence.*;
 
@@ -30,9 +30,9 @@ public class Post {
     }
 
     public enum postType{
-        Startup,
-        Medical,
-        CharityOrganisation
+        STARTUP,
+        MEDICAL,
+        CHARITYORGANIZATION
     }
     @Enumerated(EnumType.STRING)
     private Post.postType postType;
@@ -40,7 +40,7 @@ public class Post {
     private List<Comment> comment=new ArrayList<>();
     private double amountreceived;
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
-    private List<Payments> payments=new ArrayList<>();
+    private List<Transaction> payments=new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -53,7 +53,7 @@ public class Post {
         this.amountNeeded = amountNeeded;
     }
 
-    public Post(Integer id, String title, String urlField, String cause, String details, double amountNeeded, postType usertype, List<Comment> comment, double amountreceived, List<Payments> payments, User user) {
+    public Post(Integer id, String title, String urlField, String cause, String details, double amountNeeded, postType usertype, List<Comment> comment, double amountreceived, List<Transaction> payments, User user) {
         this.id = id;
         this.title = title;
         this.urlField = urlField;
@@ -139,11 +139,11 @@ public class Post {
         this.amountreceived = amountReceived;
     }
 
-    public List<Payments> getPayments() {
+    public List<Transaction> getPayments() {
         return payments;
     }
 
-    public void setPayments(List<Payments> payments) {
+    public void setPayments(List<Transaction> payments) {
         this.payments = payments;
     }
 

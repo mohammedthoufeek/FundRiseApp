@@ -11,6 +11,7 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
     @PostMapping("user")
     public User createuser(@RequestBody User user) throws UserException {
         return this.userService.register(user);
@@ -38,7 +39,7 @@ public class UserController {
         return this.userService.getProfile(httpSession);
     }
     @GetMapping("profiles")
-    public List<User> getProfile() throws UserException {
+    public List<User> getProfiles() throws UserException {
         return this.userService.getProfiles();
     }
     @GetMapping("profiles/charity")
