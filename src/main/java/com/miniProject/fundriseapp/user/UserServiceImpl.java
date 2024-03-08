@@ -37,13 +37,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) throws UserException {
+        if(user==null) throw new UserException("USER CAN'T BE NULL");
         User email = userRepo.findByEmail(user.getEmail());
         User password=userRepo.findByPassword(user.getPassword());
         if(email!=null)throw  new UserException("Email already exists");
         if(password!=null)throw  new UserException("Password is weak");
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashedPassword);
-        return userRepo.save(user);
+        return this.userRepo.save(user);
     }
     @Override
     public Integer signIn(SignInRequest signInRequest, HttpSession httpSession) throws UserException {
