@@ -13,7 +13,7 @@ public interface UserService {
 
    User getProfile(HttpSession httpSession) throws UserException;
 
-   List<User> getProfiles();
+   List<User> getProfiles() throws UserException;
 
    List<User> getProfilecharity();
 

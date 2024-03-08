@@ -16,12 +16,12 @@ public class PaymentController {
     }
 
     @GetMapping("payment")
-    public List<Payments> getAllPayments(){
+    public List<Payments> getAllPayments()throws PaymentsException{
         return this.paymentService.getAllPayments();
     }
 
     @GetMapping("payment/{id}")
-    public Payments getPaymentById(@PathVariable Integer id){
+    public Payments getPaymentById(@PathVariable Integer id)throws PaymentsException{
         return this.paymentService.getPaymentById(id);
     }
 
