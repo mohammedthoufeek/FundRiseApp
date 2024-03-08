@@ -49,6 +49,8 @@ public class UserServiceImpl implements UserService {
 
 
 
+
+
     @Override
    // @Transactional(rollbackFor = {ValidationException.class})
     public User register(  User user) throws UserException {
