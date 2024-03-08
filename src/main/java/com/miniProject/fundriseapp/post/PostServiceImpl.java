@@ -33,13 +33,15 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post createPost(Integer userId, Post newPost) throws PostException{
 
-        System.out.println("Service Working" + newPost);
         User userObj = this.userRepo.findById(userId).orElse(null);
+        if(userObj==null) throw new PostException("User can't be null");
         if (userObj != null) {
             // Set the user for the new post
             newPost.setUser(userObj);
             // Save the post
             Post postObj = this.postrepo.save(newPost);
+            if(postObj==null) throw new PostException("Post is not created");
+
             // Add the post to the user's list of posts
             userObj.getPost().add(postObj);
             // Save the user object
@@ -64,8 +66,9 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post getPostById(Integer id)throws PostException {
         Optional<Post> postOpt=this.postrepo.findById(id);
+        if(postOpt==null) throw new PostException("Post is not available 'By id'");
         if(postOpt.isPresent()) {
-            System.out.println("getpost"+ this.postrepo.findById(id).get());
+//            System.out.println("getpost"+ this.postrepo.findById(id).get());
             return this.postrepo.findById(id).get();
         }
         else throw new PostException("No post was created yet!!!");
@@ -76,7 +79,9 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post updatePost(Post post,Integer userId)throws PostException {
         Optional<Post> postOpt =this.postrepo.findById(post.getId());
+        if(postOpt==null) throw new PostException("Post is not available 'By Update post'");
         User userObj = this.userRepo.findById(userId).orElse(null);
+        if(userObj==null) throw new PostException("Enter correct user id to update");
         if(postOpt.isPresent())
         {
 

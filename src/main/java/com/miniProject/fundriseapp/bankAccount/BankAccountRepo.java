@@ -1,13 +1,13 @@
-package com.miniProject.fundriseapp.account;
+package com.miniProject.fundriseapp.bankAccount;
 import com.miniProject.fundriseapp.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public interface AccountRepo extends JpaRepository<Account,Integer>{
+public interface BankAccountRepo extends JpaRepository<BankAccount,Integer>{
     // Account findByUser(Integer id);
 
-    Account findByUser(User user);
-    List<Account> findByUserName(String accountName);
+    BankAccount findByUser(User user);
+    List<BankAccount> findByUserName(String accountName);
 }

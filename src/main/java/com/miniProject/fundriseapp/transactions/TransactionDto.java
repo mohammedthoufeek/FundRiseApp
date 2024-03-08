@@ -1,4 +1,4 @@
-package com.miniProject.fundriseapp.payments;
+package com.miniProject.fundriseapp.transactions;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -6,7 +6,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class PaymentDto {
+
+
+
+
+
+public class TransactionDto {
     @NotBlank(message = "userid Field shouldnot be blank")
     private Integer userId;
     @NotBlank(message = "postid Field shouldnot be blank")
@@ -18,10 +23,10 @@ public class PaymentDto {
     private LocalDate date;
     private LocalTime time;
 
-    public PaymentDto() {
+    public TransactionDto() {
     }
 
-    public PaymentDto(Integer userId, Integer postId, Double amount, LocalDate date, LocalTime time) {
+    public TransactionDto(Integer userId, Integer postId, Double amount, LocalDate date, LocalTime time) {
         this.userId = userId;
         this.postId = postId;
         this.amount = amount;

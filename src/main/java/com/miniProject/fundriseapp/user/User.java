@@ -4,9 +4,9 @@ package com.miniProject.fundriseapp.user;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.miniProject.fundriseapp.account.Account;
+import com.miniProject.fundriseapp.bankAccount.BankAccount;
 import com.miniProject.fundriseapp.notification.Notification;
-import com.miniProject.fundriseapp.payments.Payments;
+import com.miniProject.fundriseapp.transactions.Transaction;
 import com.miniProject.fundriseapp.post.Post;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -51,7 +51,7 @@ public class User{
     @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}", message = "Password must contain at least one digit, one lowercase and one uppercase letter, and be 6-12 characters long")
     private String password;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-    private Account accountDetails;
+    private BankAccount bankAccountDetails;
 
 
 
@@ -59,7 +59,7 @@ public class User{
     List<Post> post=new ArrayList<>();
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    List<Payments> payments=new ArrayList<>();
+    List<Transaction> payments=new ArrayList<>();
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     List<Notification> notification=new ArrayList<>();
 
@@ -94,7 +94,7 @@ public class User{
         this.password = password;
     }
 
-    public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype, Account accountDetails, List<Post> post, List<Payments> payments, List<Notification> notification) {
+    public User(Integer id, String name, LocalDate dob, String address, String phonenumber, Integer age, Usertype usertype, BankAccount bankAccountDetails, List<Post> post, List<Transaction> payments, List<Notification> notification) {
         this.id = id;
         this.name = name;
         this.dob = dob;
@@ -102,7 +102,7 @@ public class User{
         this.phonenumber = phonenumber;
         this.age = age;
         this.usertype = usertype;
-        this.accountDetails = accountDetails;
+        this.bankAccountDetails = bankAccountDetails;
         this.post = post;
         this.payments = payments;
         this.notification = notification;
@@ -165,12 +165,12 @@ public class User{
         this.usertype = usertype;
     }
 
-    public Account getAccountDetails() {
-        return accountDetails;
+    public BankAccount getAccountDetails() {
+        return bankAccountDetails;
     }
 
-    public void setAccountDetails(Account accountDetails) {
-        this.accountDetails = accountDetails;
+    public void setAccountDetails(BankAccount bankAccountDetails) {
+        this.bankAccountDetails = bankAccountDetails;
     }
 
     public List<Post> getPost() {
@@ -181,11 +181,11 @@ public class User{
         this.post = post;
     }
 
-    public List<Payments> getPayments() {
+    public List<Transaction> getPayments() {
         return payments;
     }
 
-    public void setPayments(List<Payments> payments) {
+    public void setPayments(List<Transaction> payments) {
         this.payments = payments;
     }
 

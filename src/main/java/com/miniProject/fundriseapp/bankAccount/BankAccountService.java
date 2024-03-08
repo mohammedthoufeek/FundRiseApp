@@ -1,0 +1,20 @@
+package com.miniProject.fundriseapp.bankAccount;
+
+public interface BankAccountService {
+
+
+    //create account
+    BankAccount createAccount(BankAccount newBankAccount, Integer userId) throws BankAccountException;
+
+    //read account
+    BankAccount getAccountById(Integer accountId) throws BankAccountException;
+    //update account
+
+
+    //Double withdrawAllFunds();
+    Boolean updateAccountNameById(Integer accountId, String name) throws BankAccountException;
+    //delete
+    BankAccount deleteAccountById(Integer accountId) throws BankAccountException;
+
+}
+

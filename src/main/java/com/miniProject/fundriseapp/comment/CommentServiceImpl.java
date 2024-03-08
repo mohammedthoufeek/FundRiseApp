@@ -25,18 +25,21 @@ public class CommentServiceImpl implements CommentService{
 
     @Autowired
     private UserRepo userRepo;
-@Autowired
-private NotificationRepo notificationRepo;
+    @Autowired
+    private NotificationRepo notificationRepo;
     @Override
     public String createComment(CommentDto commentDto) throws CommentException {
         Post postObj=this.postRepo.findById(commentDto.getPostId()).get();
+        if(postObj==null) throw new CommentException("Post not present to comment");
         User user=this.userRepo.findById(commentDto.getUserId()).get();
+        if(user==null) throw new CommentException("User is not present to comment");
         Comment commentObj=new Comment();
         commentObj.setUser(user);
         commentObj.setDate(commentDto.getDate());
         commentObj.setMessage(commentDto.getMessage());
-        System.out.println(commentObj+" "+postObj+" "+user);
+//        System.out.println(commentObj+" "+postObj+" "+user);
         Comment commentOb=this.commentRepo.save(commentObj);
+        if(commentOb==null) throw new CommentException("Comment is not saved");
         System.out.println(commentObj);
         postObj.getComment().add(commentOb);
         this.postRepo.save(postObj);
@@ -65,7 +68,9 @@ private NotificationRepo notificationRepo;
     @Override
     public Comment updateComment(Comment comment,Integer userId) throws CommentException {
         Optional<Comment> commentOpt=this.commentRepo.findById(comment.getId());
+        if(commentOpt==null) throw new CommentException("Comment will not be updated");
         User userObj = this.userRepo.findById(userId).orElse(null);
+        if(userObj==null) throw new CommentException("User not present to update comment");
         if(commentOpt.isPresent())
         {
             Notification notification=new Notification();
@@ -84,7 +89,9 @@ private NotificationRepo notificationRepo;
     public Comment deleteCommentById(Integer id,Integer userId) throws CommentException {
 
         Optional<Comment> commentOpt=this.commentRepo.findById(id);
+        if(commentOpt==null) throw new CommentException("Comment id is not present to delete");
         User userObj = this.userRepo.findById(userId).orElse(null);
+        if(userObj==null) throw new CommentException("User not present to delete comment");
         if (commentOpt.isPresent()) {
             Notification notification=new Notification();
             Comment retrievedComment = commentOpt.get();
@@ -97,7 +104,7 @@ private NotificationRepo notificationRepo;
             this.commentRepo.deleteById(id);
             return commentOpt.get();
         }
-        else throw new CommentException("Given id is incorrect to delete");
+        else throw new CommentException("Given id is incorrect to delete comment");
     }
 
     @Override
