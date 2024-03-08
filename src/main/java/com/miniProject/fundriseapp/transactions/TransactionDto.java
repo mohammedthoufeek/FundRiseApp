@@ -1,18 +1,18 @@
-package com.miniProject.fundriseapp.payments;
+package com.miniProject.fundriseapp.transactions;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class PaymentDto {
+public class TransactionDto {
     private Integer userId;
     private Integer postId;
     private Double amount;
     private LocalDate date;
     private LocalTime time;
 
-    public PaymentDto() {
+    public TransactionDto() {
     }
 
-    public PaymentDto(Integer userId, Integer postId, Double amount, LocalDate date, LocalTime time) {
+    public TransactionDto(Integer userId, Integer postId, Double amount, LocalDate date, LocalTime time) {
         this.userId = userId;
         this.postId = postId;
         this.amount = amount;
