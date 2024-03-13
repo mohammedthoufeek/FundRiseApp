@@ -22,9 +22,9 @@ public class BankAccountServiceImpl implements BankAccountService {
     private NotificationRepo notificationRepo;
 
     @Override
-    public BankAccount createAccount(BankAccount newBankAccount, Integer userId) throws BankAccountException {
-        User user = this.userRepo.findById(userId).get();
-        if(user==null) throw new BankAccountException("User not found to add account");
+    public BankAccount createAccount(BankAccount newBankAccount, String email) throws BankAccountException {
+        User user = this.userRepo.findByEmail(email);
+        if(user == null) throw new BankAccountException("User not found to add account");
         if(newBankAccount ==null) throw new BankAccountException("Account should not be null");
         newBankAccount.setUser(user);
 
