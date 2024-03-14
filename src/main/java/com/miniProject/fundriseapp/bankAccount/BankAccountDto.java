@@ -5,6 +5,14 @@ public class BankAccountDto {
     private Integer userId;
     BankAccount bankAccount;
 
+    public BankAccount getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
     public Integer getUserId() {
         return userId;
     }
