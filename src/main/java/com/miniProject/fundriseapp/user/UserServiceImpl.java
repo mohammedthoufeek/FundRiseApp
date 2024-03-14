@@ -6,20 +6,9 @@ import jakarta.servlet.http.HttpSession;
 
 import com.miniProject.fundriseapp.comment.CommentRepo;
 
-import jakarta.validation.Valid;
-import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -63,12 +52,12 @@ public class UserServiceImpl implements UserService {
         return userRepo.save(user);
     }
     @Override
-    public Integer signIn(SignInRequest signInRequest, HttpSession httpSession) throws UserException {
+    public User signIn(SignInRequest signInRequest, HttpSession httpSession) throws UserException {
         User user = userRepo.findByEmail(signInRequest.getEmail());
         if (user != null) {
             if (BCrypt.checkpw(signInRequest.getPassword(), user.getPassword())){
                 httpSession.setAttribute("userId", user.getId());
-                return user.getId();}else{
+                return user;}else{
                 throw  new UserException("Password not matches");
             }
         } else {
@@ -78,9 +67,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String signOut(HttpSession httpSession) {
-        httpSession.invalidate();
-        return "Signed out successfully";
+    public Map<String, String> signOut(HttpSession httpSession) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Signed out successfully");
+        return response;
     }
 
     @Override

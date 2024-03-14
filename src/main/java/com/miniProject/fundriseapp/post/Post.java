@@ -37,9 +37,9 @@ public class Post {
     }
 
     public enum postType{
-        STARTUP,
-        MEDICAL,
-        CHARITYORGANIZATION
+        Startup,
+        Medical,
+        CharityOrganisation
     }
     @Enumerated(EnumType.STRING)
     private Post.postType postType;
