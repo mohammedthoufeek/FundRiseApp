@@ -3,12 +3,13 @@ package com.miniProject.fundriseapp.user;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
-   public User register(User user) throws UserException;
-   public Integer signIn(SignInRequest signInRequest,HttpSession httpSession) throws UserException;
-   public String signOut(HttpSession httpSession);
+   public User register(  User user) throws UserException;
+   public User signIn(SignInRequest signInRequest, HttpSession httpSession) throws UserException;
+   public Map<String, String> signOut(HttpSession httpSession);
 
    User getProfile(HttpSession httpSession) throws UserException;
 
