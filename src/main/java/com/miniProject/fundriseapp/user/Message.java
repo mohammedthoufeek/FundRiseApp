@@ -3,6 +3,9 @@ package com.miniProject.fundriseapp.user;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,8 +18,11 @@ public class Message {
     @Id
     @GeneratedValue
     Integer id;
+    @NotNull(message = "Date of birth cannot be null")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private LocalTime time;
+    @NotBlank(message = "Message should not be null")
     private String message;
     @ManyToOne
     @JoinColumn(name = "messages")

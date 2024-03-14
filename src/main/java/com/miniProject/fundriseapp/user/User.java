@@ -9,6 +9,11 @@ import com.miniProject.fundriseapp.notification.Notification;
 import com.miniProject.fundriseapp.transactions.Transaction;
 import com.miniProject.fundriseapp.post.Post;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,10 +27,16 @@ public class User{
     @Id
     @GeneratedValue
     private Integer id;
+    @NotBlank(message = "Please provide a username")
     private String name;
+    @NotNull(message = "Date of birth cannot be null")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
+    @NotBlank(message = "Should not be null")
     private String address;
+    @Pattern(regexp = "^\\+(?:[0-9] ?){6,14}[0-9]$", message = "Invalid phone number format")
     private String phonenumber;
+    @NotNull(message = "age should not  be null")
     private Integer age;
 
     public enum Usertype {
@@ -35,8 +46,9 @@ public class User{
     }
     @Enumerated(EnumType.STRING)
     private Usertype usertype;
-
+    @Email(message = "Invalid email format")
     private String email;
+    @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}", message = "Password must contain at least one digit, one lowercase and one uppercase letter, and be 6-12 characters long")
     private String password;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private BankAccount bankAccountDetails;
