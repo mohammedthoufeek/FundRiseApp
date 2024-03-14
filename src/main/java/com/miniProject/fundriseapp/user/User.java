@@ -34,7 +34,7 @@ public class User{
     private LocalDate dob;
     @NotBlank(message = "Should not be null")
     private String address;
-    @Pattern(regexp = "^\\+(?:[0-9] ?){6,14}[0-9]$", message = "Invalid phone number format")
+    @Pattern(regexp = "[0-9]{3}[0-9]{3}[0-9]{4}", message = "Invalid phone number format")
     private String phonenumber;
     @NotNull(message = "age should not  be null")
     private Integer age;
