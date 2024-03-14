@@ -24,8 +24,10 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Override
     public BankAccount createAccount(BankAccount newBankAccount, String email) throws BankAccountException {
         User user = this.userRepo.findByEmail(email);
+
         if(user == null) throw new BankAccountException("User not found to add account");
         if(newBankAccount ==null) throw new BankAccountException("Account should not be null");
+        if(user.getAccountDetails()!=null) throw new BankAccountException("Account already exist");
         newBankAccount.setUser(user);
 
         Notification notification=new Notification();

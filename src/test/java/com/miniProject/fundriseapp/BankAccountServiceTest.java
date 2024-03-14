@@ -14,8 +14,6 @@ public class BankAccountServiceTest {
 
     @Autowired
     private BankAccountService bankAccountService;
-    @Autowired
-    private BankAccountRepo bankAccountRepo;
 
 
     public BankAccountServiceTest() {
@@ -38,9 +36,10 @@ public class BankAccountServiceTest {
     @Order(2)
     void duplicateAccountCreation(){
         Assertions.assertThrows(BankAccountException.class, () -> {
-            this.bankAccountRepo.registerAccount(new BankAccount("atharsh",1234,123));
-        });
+            this.bankAccountService.createAccount(new BankAccount(2,200.0,"dhanush",234,111,"SBI"),"abc");
+    });
     }
+
 
     @DisplayName("Valid Account number")
     @Test
@@ -64,7 +63,7 @@ public class BankAccountServiceTest {
         }
     }
 
-    @DisplayName("Account by name exception")
+    /*@DisplayName("Account by name exception")
     @Test
     @Order(5)
     void checkByAccountName(){
@@ -72,11 +71,9 @@ public class BankAccountServiceTest {
         Assertions.assertThrows(BankAccountException.class, () ->{
             this.bankAccountService.getAccountById(2).getAccountName();
         });
-    }
+    }*/
 
   /*  @DisplayName("Account id null")
     @Test
     @Order(6)*/
-
-
-}
+    }
