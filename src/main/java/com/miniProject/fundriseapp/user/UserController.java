@@ -2,6 +2,7 @@ package com.miniProject.fundriseapp.user;
 
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,13 +12,14 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
     @PostMapping("user")
-    public User createuser(@RequestBody User user) throws UserException {
+    public User createuser(@Valid @RequestBody User user) throws UserException {
         return this.userService.register(user);
     }
 
     @PostMapping("signin")
-    public Integer signIn(@RequestBody SignInRequest signInRequest, HttpSession httpSession) throws UserException {
+    public Integer signIn(@Valid @RequestBody SignInRequest signInRequest, HttpSession httpSession) throws UserException {
         return this.userService.signIn(signInRequest,httpSession);
     }
     @GetMapping("signout")
@@ -38,7 +40,7 @@ public class UserController {
         return this.userService.getProfile(httpSession);
     }
     @GetMapping("profiles")
-    public List<User> getProfile() throws UserException {
+    public List<User> getProfiles() throws UserException {
         return this.userService.getProfiles();
     }
     @GetMapping("profiles/charity")
@@ -55,7 +57,7 @@ public class UserController {
     }
 
     @PostMapping("chat")
-    public String CreateConversation(@RequestBody ChatDTO chatDTO) throws UserException {
+    public String CreateConversation(@Valid @RequestBody ChatDTO chatDTO) throws UserException {
         return this.userService.createConversation(chatDTO);
 
     }
@@ -70,7 +72,7 @@ public class UserController {
     }
 
     @PatchMapping("EditMessage")
-    public Message editMessage(MessageDTO messageDTO) throws UserException{
+    public Message editMessage(@Valid @RequestBody MessageDTO messageDTO) throws UserException{
         return this.userService.editMessage(messageDTO);
     }
 

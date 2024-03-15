@@ -1,6 +1,6 @@
 package com.miniProject.fundriseapp;
 
-import com.miniProject.fundriseapp.account.*;
+import com.miniProject.fundriseapp.bankAccount.*;
 import com.miniProject.fundriseapp.user.User;
 import com.miniProject.fundriseapp.user.UserException;
 import com.miniProject.fundriseapp.user.UserServiceImpl;

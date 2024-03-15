@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -33,20 +34,18 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post createPost(Integer userId, Post newPost) throws PostException{
 
-        System.out.println("Service Working" + newPost);
         User userObj = this.userRepo.findById(userId).orElse(null);
+        if(userObj==null) throw new PostException("User can't be null");
         if (userObj != null) {
-            // Set the user for the new post
             newPost.setUser(userObj);
-            // Save the post
             Post postObj = this.postrepo.save(newPost);
-            // Add the post to the user's list of posts
+            if(postObj==null) throw new PostException("Post is not created");
             userObj.getPost().add(postObj);
-            // Save the user object
             this.userRepo.save(userObj);
             String message="post";
 
-
+//            // Notification
+//
             Notification notification=new Notification();
             notification.setPost(postObj);
             notification.setUser(userObj);
@@ -54,7 +53,6 @@ public class PostServiceImpl implements PostService {
             notification.setDate(LocalDate.now());
             notification.setTime(LocalTime.now());
             this.notificationRepo.save(notification);
-
             return postObj;
         } else {
             throw new PostException("User not found");
@@ -64,8 +62,9 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post getPostById(Integer id)throws PostException {
         Optional<Post> postOpt=this.postrepo.findById(id);
+        if(postOpt==null) throw new PostException("Post is not available 'By id'");
         if(postOpt.isPresent()) {
-            System.out.println("getpost"+ this.postrepo.findById(id).get());
+//            System.out.println("getpost"+ this.postrepo.findById(id).get());
             return this.postrepo.findById(id).get();
         }
         else throw new PostException("No post was created yet!!!");
@@ -76,7 +75,9 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post updatePost(Post post,Integer userId)throws PostException {
         Optional<Post> postOpt =this.postrepo.findById(post.getId());
+        if(postOpt==null) throw new PostException("Post is not available 'By Update post'");
         User userObj = this.userRepo.findById(userId).orElse(null);
+        if(userObj==null) throw new PostException("Enter correct user id to update");
         if(postOpt.isPresent())
         {
 
@@ -98,14 +99,15 @@ public class PostServiceImpl implements PostService {
         if (postOpt.isPresent()) {
             this.postrepo.deleteById(id);
             User userObj = this.userRepo.findById(userId).orElse(null);
+
             //Sending Notification to user after deleting the post
             Notification notification=new Notification();
             notification.setUser(userObj);
-            notification.setMessage("Your post has been deleted");
+            notification.setMessage("You have deleted the post");
             notification.setDate(LocalDate.now());
             notification.setTime(LocalTime.now());
             this.notificationRepo.save(notification);
-            //notification.getPost(postOpt);
+
 
             return postOpt.get();
         }

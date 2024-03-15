@@ -32,6 +32,10 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.30'
 
 
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation:3.2.3'
+
+
 }
 
 tasks.named('test') {

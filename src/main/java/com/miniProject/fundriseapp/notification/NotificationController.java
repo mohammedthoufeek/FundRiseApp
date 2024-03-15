@@ -5,11 +5,9 @@ import com.miniProject.fundriseapp.comment.CommentException;
 import com.miniProject.fundriseapp.post.Post;
 import com.miniProject.fundriseapp.post.PostException;
 import com.miniProject.fundriseapp.user.User;
+import com.miniProject.fundriseapp.user.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,11 +15,18 @@ import java.util.List;
 public class NotificationController {
     @Autowired
     NotificationService notificationService;
+    @Autowired
+    UserRepo userRepo;
 
     @GetMapping("Notifications/{userId}")
     public List<Notification> getAllNotificationByUserId(@PathVariable Integer userId) throws NotificationException {
         return this.notificationService.getAllNotificationByTheirUserId(userId);
     }
-
+    @PostMapping("/sendNotificationToAllExceptPublisher")
+    public String sendNotificationToAllExceptPublisher(@RequestParam Integer publisherId, @RequestParam String message) {
+        User publisher = userRepo.findById(publisherId).orElseThrow(() -> new IllegalArgumentException("Publisher not found"));
+        notificationService.sendNotificationToAllUsersExceptPublisher(publisher, message);
+        return "Notification sent to all users except the publisher";
+    }
 
 }

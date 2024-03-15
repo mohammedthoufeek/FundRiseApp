@@ -1,19 +1,20 @@
-package com.miniProject.fundriseapp.post;
+package com.miniProject.fundriseapp.transactions;
 
-import com.miniProject.fundriseapp.user.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class PostControllerAdvice {
-    @ExceptionHandler(value = {PostException.class})
-    public ResponseEntity<String> handlePostException(PostException e){
+@RestControllerAdvice
+public class TransactionControllerAdvice {
+    @ExceptionHandler(value = {TransactionException.class})
+    public ResponseEntity<String> handleUserException(TransactionException e){
         System.out.println("working");
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
@@ -30,3 +31,5 @@ public class PostControllerAdvice {
         return errors;
     }
 }
+
+

@@ -1,11 +1,20 @@
 package com.miniProject.fundriseapp.comment;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class CommentDto {
+    @NotBlank(message = "postid shouldnot be blank")
     private Integer postId;
+    @NotBlank(message = "userid shouldnot be blank")
     private Integer userId;
+    @NotBlank(message = "message shouldnot be blank")
     private String message;
+    @NotNull(message = "Date of birth cannot be null")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     public CommentDto() {
