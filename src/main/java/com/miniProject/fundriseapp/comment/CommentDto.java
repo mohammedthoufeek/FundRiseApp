@@ -7,9 +7,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 public class CommentDto {
-    @NotBlank(message = "postid shouldnot be blank")
+    @NotNull(message = "postid shouldnot be blank")
     private Integer postId;
-    @NotBlank(message = "userid shouldnot be blank")
+    @NotNull(message = "userid shouldnot be blank")
     private Integer userId;
     @NotBlank(message = "message shouldnot be blank")
     private String message;
