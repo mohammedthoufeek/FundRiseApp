@@ -37,9 +37,9 @@ public class UserController {
             return null; // or throw exception or handle as required
         }
     }
-    @GetMapping("profile")
-    public User getProfile(HttpSession httpSession) throws UserException {
-        return this.userService.getProfile(httpSession);
+    @GetMapping("profile/{id}")
+    public User getProfile(@PathVariable Integer id) throws UserException {
+        return this.userService.getProfile(id);
     }
     @GetMapping("profiles")
     public List<User> getProfiles() throws UserException {
@@ -59,20 +59,22 @@ public class UserController {
     }
 
     @PostMapping("chat")
-    public String CreateConversation(@Valid @RequestBody ChatDTO chatDTO) throws UserException {
+    public Map<String, String> CreateConversation(@Valid @RequestBody ChatDTO chatDTO) throws UserException {
+        System.out.println(chatDTO.getUserid1()+" "+ chatDTO.getUserid2()+" ");
         return this.userService.createConversation(chatDTO);
-
     }
     @GetMapping ("chat/get/{id1}/{id2}")
-    public PersonalMessage getConversation(@PathVariable Integer id1, Integer id2) throws UserException {
+    public PersonalMessage getConversation(@PathVariable Integer id1,@PathVariable Integer id2) throws UserException {
         return this.userService.getpersonalMessage(id1,id2);
-
+    }
+    @GetMapping ("messagedusers/get/{id1}")
+    public List<User> getmessagedUsers(@PathVariable Integer id1) throws UserException {
+        return this.userService.messagedusers(id1);
     }
     @GetMapping("getchat")
     public List<PersonalMessage> getallconverstaion(){
         return this.userService.getallpersonalMessage();
     }
-
     @PatchMapping("EditMessage")
     public Message editMessage(@Valid @RequestBody MessageDTO messageDTO) throws UserException{
         return this.userService.editMessage(messageDTO);

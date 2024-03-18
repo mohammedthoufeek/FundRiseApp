@@ -29,6 +29,15 @@ public class Message {
     private PersonalMessage personalMessage;
     @ManyToOne
     private User user;
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public Message(Integer id, LocalDate date, LocalTime time, String message, PersonalMessage personalMessage, User user) {
         this.id = id;
