@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
+@CrossOrigin("http://localhost:4200/")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -19,11 +21,11 @@ public class UserController {
     }
 
     @PostMapping("signin")
-    public Integer signIn(@Valid @RequestBody SignInRequest signInRequest, HttpSession httpSession) throws UserException {
+    public User signIn(@Valid @RequestBody SignInRequest signInRequest, HttpSession httpSession) throws UserException {
         return this.userService.signIn(signInRequest,httpSession);
     }
     @GetMapping("signout")
-    public String signOut(HttpSession httpSession) {
+    public Map<String, String> signOut(HttpSession httpSession) {
         return this.userService.signOut(httpSession);
     }
     @GetMapping("userid")
@@ -35,9 +37,9 @@ public class UserController {
             return null; // or throw exception or handle as required
         }
     }
-    @GetMapping("profile")
-    public User getProfile(HttpSession httpSession) throws UserException {
-        return this.userService.getProfile(httpSession);
+    @GetMapping("profile/{userId}")
+    public User getProfileById(@PathVariable  Integer userId) throws UserException {
+        return this.userService.getProfileById(userId);
     }
     @GetMapping("profiles")
     public List<User> getProfiles() throws UserException {

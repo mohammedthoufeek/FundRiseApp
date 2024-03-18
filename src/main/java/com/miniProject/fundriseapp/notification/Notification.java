@@ -14,9 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
 public class Notification {
 
   @Id

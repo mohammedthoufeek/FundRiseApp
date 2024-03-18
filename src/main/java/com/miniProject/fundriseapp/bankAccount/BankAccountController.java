@@ -10,8 +10,10 @@ public class BankAccountController {
     private BankAccountService bankAccountService;
 
     @PostMapping("account")
-    public BankAccount createAccount(@Valid @RequestBody BankAccount bankAccount, Integer id) throws BankAccountException {
-        return this.bankAccountService.createAccount(bankAccount,id);
+
+    public BankAccount createAccount(@Valid @RequestBody BankAccount bankAccount,Integer userId) throws BankAccountException {
+        return this.bankAccountService.createAccount(bankAccount,userId);
+
     }
 
     @PatchMapping("account")

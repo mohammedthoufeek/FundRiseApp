@@ -49,7 +49,7 @@ public class PostServiceImpl implements PostService {
             Notification notification=new Notification();
             notification.setPost(postObj);
             notification.setUser(userObj);
-            notification.setMessage("Your Post has been published");
+            notification.setMessage("Your Post  titled as \""+newPost.getTitle()+"\" for cause of  "+postObj.getCause()+" is published.");
             notification.setDate(LocalDate.now());
             notification.setTime(LocalTime.now());
             this.notificationRepo.save(notification);
@@ -84,7 +84,7 @@ public class PostServiceImpl implements PostService {
             Notification notification=new Notification();
             notification.setPost(getPostById(post.getId()));
             notification.setUser(userObj);
-            notification.setMessage("Your post has been updated");
+            notification.setMessage("Your Post  titled as \" "+post.getTitle()+"\" for cause of "+post.getCause()+" is updated.");
             notification.setDate(LocalDate.now());
             notification.setTime(LocalTime.now());
             this.notificationRepo.save(notification);
@@ -95,21 +95,21 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post deletePostById(Integer id, Integer userId)throws PostException {
-        Optional<Post> postOpt=this.postrepo.findById(id);
-        if (postOpt.isPresent()) {
-            this.postrepo.deleteById(id);
+        Post postOpt=this.postrepo.findById(id).get();
+
+        if (postOpt!=null) {
             User userObj = this.userRepo.findById(userId).orElse(null);
 
             //Sending Notification to user after deleting the post
             Notification notification=new Notification();
             notification.setUser(userObj);
-            notification.setMessage("You have deleted the post");
+            notification.setMessage("Your Post titled as \""+postOpt.getTitle()+"\" for cause of "+postOpt.getCause()+"is deleted.");
             notification.setDate(LocalDate.now());
             notification.setTime(LocalTime.now());
             this.notificationRepo.save(notification);
 
-
-            return postOpt.get();
+            this.postrepo.deleteById(id);
+            return postOpt;
         }
 
         else throw new PostException("Post Id you entered is incorrect");
