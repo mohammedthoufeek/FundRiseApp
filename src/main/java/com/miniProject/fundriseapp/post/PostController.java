@@ -7,15 +7,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4200/")
 public class PostController {
     @Autowired
     PostService postService;
+
+
     @PostMapping("post")
-
-
-    public Post createPost(@Valid @RequestBody Post post, Integer user_id)throws PostCreationException{
+    public Post createPost(@Valid @RequestBody Post post, @RequestParam("userId") Integer user_id) throws PostCreationException {
+        System.out.println(post+""+user_id);
         return this.postService.createPost(user_id,post);
-
     }
 
     @GetMapping("post/{id}")
@@ -30,7 +31,8 @@ public class PostController {
     }
 
     @GetMapping("posts")
-    public List<Post> getPostById() throws PostException{
+    public List<Post> getAllPosts() throws PostException{
+
         return this.postService.getAllPost();
     }
     @DeleteMapping("post/{id}")

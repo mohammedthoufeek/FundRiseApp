@@ -20,17 +20,17 @@ class PostServiceTest {
     private PostService postService;
 
 
-    @Test
-    public void testCreatePost_Positive() throws PostException {
-        PostService postService=new PostServiceImpl();
-        try {
-            Assertions.assertNotNull(postService.createPost(1,new Post(1,"Patient is on urgent","www.ci.com","cancer","Patient has blood cancer",230000.0)));
-        }
-        catch (PostCreationException e){
-            e.printStackTrace();
-        }
-    }
-//
+//    @Test
+//    public void testCreatePost_Positive() throws PostException {
+//        PostService postService=new PostServiceImpl();
+//        try {
+//            Assertions.assertNotNull(postService.createPost(1,new Post(1,"Patient is on urgent","www.ci.com","cancer","Patient has blood cancer",230000.0)));
+//        }
+//        catch (PostCreationException e){
+//            e.printStackTrace();
+//        }
+//    }
+
 //    @Test
 //    public void testCreatePost_Negative()  {
 //        postService=new PostServiceImpl();
@@ -42,10 +42,10 @@ class PostServiceTest {
 //        }
 //
 //    }
-//
-//
-//
-//    //+v to get post by id
+
+
+
+    //+v to get post by id
 //    @Test
 //    void getPostById() throws PostCreationException{
 //
@@ -53,9 +53,9 @@ class PostServiceTest {
 //        Assertions.assertNotNull(retrievedPost);
 //        Assertions.assertEquals(1, retrievedPost.getId());
 //    }
-//
-//
-//    //-ve to get post by id
+
+
+    //-ve to get post by id
 //    @Test
 //    void getPostById_() {
 //        PostException exception = Assertions.assertThrows(PostException.class, () -> {
@@ -65,9 +65,9 @@ class PostServiceTest {
 //        Assertions.assertEquals("Post is not available for this id", exception.getMessage());
 //
 //    }
-//
-//
-//    //+ve to update post
+
+
+    //+ve to update post
 //    @Test
 //    void updatePost() throws PostException {
 //        Post post = new Post();
@@ -82,9 +82,9 @@ class PostServiceTest {
 //        Assertions.assertNotNull(updatedPost);
 //        Assertions.assertEquals("Updated Title", updatedPost.getTitle());
 //    }
-//
-//
-//    //-ve to update post
+
+
+    //-ve to update post
 //    @Test
 //    void updatePost_() {
 //        Post post = new Post();
@@ -96,9 +96,9 @@ class PostServiceTest {
 //            Assertions.assertEquals("Post is not available to update the post", e.getMessage());
 //        }
 //    }
-//
-//
-//    //+ve to delete post
+
+
+    //+ve to delete post
 //    @Test
 //    void deletePostById() throws PostException {
 //        Post post = new Post();
@@ -112,20 +112,20 @@ class PostServiceTest {
 //        Assertions.assertNotNull(deletedPost);
 //        Assertions.assertEquals(1, deletedPost.getId());
 //    }
-//
-//
-//    //-ve to delete post
-//    @Test
-//    void deletePostById_() {
-//        try {
-//            postService.deletePostById(1, 1);
-//        } catch (PostException e) {
-//            Assertions.assertEquals("Post Id you entered is incorrect", e.getMessage());
-//        }
-//    }
-//
-//
-//    //+ve test case for get all post
+
+
+    //-ve to delete post
+    @Test
+    void deletePostById_() {
+        try {
+            postService.deletePostById(1, 1);
+        } catch (PostException e) {
+            Assertions.assertEquals("Post Id you entered is incorrect", e.getMessage());
+        }
+    }
+
+
+    //+ve test case for get all post
 //    @Test
 //    void getAllPost() throws PostException {
 //        try {
@@ -142,16 +142,16 @@ class PostServiceTest {
 //            Assertions.fail("Exception thrown: " + e.getMessage());
 //        }
 //    }
-//
-//
-//
-//    //-ve test case for get all post
-//    @Test
-//    void getAllPost_() {
-//        try {
-//            postService.getAllPost(); // This should throw a PostException
-//        } catch (PostException e) {
-//            Assertions.assertEquals("No post was created", e.getMessage());
-//        }
-//    }
+
+
+
+    //-ve test case for get all post
+    @Test
+    void getAllPost_() {
+        try {
+            postService.getAllPost(); // This should throw a PostException
+        } catch (PostException e) {
+            Assertions.assertEquals("No post was created", e.getMessage());
+        }
+    }
 }

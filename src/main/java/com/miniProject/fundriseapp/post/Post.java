@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 //@Table(name = "Post",schema = "public")
 public class Post {
     @Id
@@ -32,17 +32,18 @@ public class Post {
     @NotNull(message = "amount shouldnot be blank")
     private double amountNeeded;
 
-    public Post() {
-
-    }
-
     public enum postType{
         Startup,
         Medical,
         CharityOrganisation
     }
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Post type should not be null")
     private Post.postType postType;
+
+    public Post() {
+
+    }
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comment=new ArrayList<>();
     @NotNull(message = "amount shouldnot be blank")
@@ -51,7 +52,20 @@ public class Post {
     private List<Transaction> payments=new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "user_id")
+    //@JsonIgnore
     private User user;
+
+
+
+    public double getAmountreceived() {
+        return amountreceived;
+    }
+
+    public void setAmountreceived(double amountreceived) {
+        this.amountreceived = amountreceived;
+    }
+
+
     public Post(Integer id, String title, String urlField, String cause, String details, double amountNeeded) {
         this.id = id;
         this.title = title;

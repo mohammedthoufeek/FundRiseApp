@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -107,6 +108,7 @@ public class PostServiceImpl implements PostService {
     public List<Post> getAllPost()throws PostException {
         List<Post> postOpt=this.postrepo.findAll();
         if(postOpt.isEmpty()) throw new PostException("No post was created");
+
         return this.postrepo.findAll();
     }
 
