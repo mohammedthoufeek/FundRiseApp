@@ -10,4 +10,5 @@ public interface BankAccountRepo extends JpaRepository<BankAccount,Integer>{
 
     BankAccount findByUser(User user);
     List<BankAccount> findByUserName(String accountName);
+
 }
