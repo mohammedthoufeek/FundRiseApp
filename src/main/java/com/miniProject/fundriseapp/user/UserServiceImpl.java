@@ -12,6 +12,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +75,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+
     public User getProfileById(Integer userId) throws UserException {
+
 
         User user=this.userRepo.findById(userId).get();
         if(user==null) throw new UserException("User does not Exist");
@@ -101,7 +104,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String createConversation(ChatDTO chatDTO) throws UserException {
+    public Map<String, String> createConversation(ChatDTO chatDTO) throws UserException {
+        System.out.println(chatDTO);
         User user1 = this.userRepo.findById(chatDTO.getUserid1()).get();
 
         User user2 = this.userRepo.findById(chatDTO.getUserid2()).get();
@@ -110,12 +114,13 @@ public class UserServiceImpl implements UserService {
         if (user1 == null || user2 == null) throw new UserException("User does not exist");
         PersonalMessage personalMessage1=this.personalMessageRepo.findByUser1AndUser2(user1,user2);
         PersonalMessage personalMessage2=this.personalMessageRepo.findByUser1AndUser2(user2,user1);
-
         Message message=new Message();
         message.setDate(LocalDate.now());
         message.setTime(LocalTime.now());
         message.setMessage(chatDTO.getMessage());
         message.setUser(user1);
+        message.setUserName(user1.getName());
+        Map<String, String> response = new HashMap<>();
         if(personalMessage1==null && personalMessage2 ==null){
             PersonalMessage personalMessage=new PersonalMessage();
             personalMessage.setUser1(user1);
@@ -125,7 +130,9 @@ public class UserServiceImpl implements UserService {
             Message message1=this.messageRepo.save(message);
             personalMessage3.getMessageList().add(message1);
             this.personalMessageRepo.save(personalMessage3);
-            return "successfull";
+
+            response.put("message", "Message successfully sent");
+            return response;
         }else{
             if(personalMessage1==null){
                 message.setPersonalMessage(personalMessage2);
@@ -139,7 +146,8 @@ public class UserServiceImpl implements UserService {
                 personalMessage1.getMessageList().add(message1);
                 this.personalMessageRepo.save(personalMessage1);
             }
-            return "successfull";
+            response.put("message", "Message successfully sent");
+            return response;
         }
     }
 
@@ -179,6 +187,19 @@ public class UserServiceImpl implements UserService {
         if (userObj.getId() != messageObj.getUser().getId()) throw new UserException("User can't edit");
         messageObj.setMessage(messageDTO.getMessage());
         return this.messageRepo.save(messageObj);
+    }
+
+    @Override
+    public List<User> messagedusers(Integer id1) {
+        User userObj = this.userRepo.findById(id1).get();
+        List<PersonalMessage> personalmessages=new ArrayList<>();
+        personalmessages =this.personalMessageRepo.findByUser1OrUser2(id1);
+        List<User>userobjects=new ArrayList<>();
+        for(PersonalMessage obj:personalmessages){
+            if(obj.getUser1()==userObj)userobjects.add(obj.getUser2());
+            else if(obj.getUser2()==userObj)userobjects.add(obj.getUser1());
+        }
+        return userobjects;
     }
 }
 

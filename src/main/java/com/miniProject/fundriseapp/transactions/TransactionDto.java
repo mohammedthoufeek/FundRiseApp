@@ -12,13 +12,13 @@ import java.time.LocalTime;
 
 
 public class TransactionDto {
-    @NotBlank(message = "userid Field shouldnot be blank")
+   @NotNull(message = "userid Field shouldnot be blank")
     private Integer userId;
-    @NotBlank(message = "postid Field shouldnot be blank")
+   @NotNull(message = "postid Field shouldnot be blank")
     private Integer postId;
-    @NotBlank(message = "amount Field shouldnot be blank")
+   @NotNull(message = "amount Field shouldnot be blank")
     private Double amount;
-    @NotNull(message = "Date of birth cannot be null")
+   @NotNull(message = "Date of birth cannot be null")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private LocalTime time;
