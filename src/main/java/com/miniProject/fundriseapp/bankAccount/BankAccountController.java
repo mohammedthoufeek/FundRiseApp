@@ -13,11 +13,8 @@ public class BankAccountController {
 
     @PostMapping("account")
 
-    public BankAccount createAccount(@RequestBody BankAccount bankAccount, String email) throws BankAccountException {
-        return this.bankAccountService.createAccount(bankAccount, email);
-
-    public BankAccount createAccount(@Valid @RequestBody BankAccount bankAccount, Integer id) throws BankAccountException {
-        return this.bankAccountService.createAccount(bankAccount,id);
+    public BankAccount createAccount(@Valid @RequestBody BankAccount bankAccount,Integer userId) throws BankAccountException {
+        return this.bankAccountService.createAccount(bankAccount,userId);
 
     }
 

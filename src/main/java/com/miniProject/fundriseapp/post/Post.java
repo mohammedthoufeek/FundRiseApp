@@ -21,15 +21,15 @@ public class Post {
     @Id
     @GeneratedValue
     private Integer id;
-    @NotBlank(message = "title Field shouldnot be blank")
+    //@NotBlank(message = "title Field shouldnot be blank")
     private String title;
-    @NotBlank(message = "UrlField shouldnot be blank")
+    //@NotBlank(message = "UrlField shouldnot be blank")
     private String urlField;
-    @NotBlank(message = "Message shouldnot be blank")
+    //@NotBlank(message = "Message shouldnot be blank")
     private String cause;
-    @NotBlank(message = "Details shouldnot be blank")
+   // @NotBlank(message = "Details shouldnot be blank")
     private String details;
-    @NotNull(message = "amount shouldnot be blank")
+   // @NotNull(message = "amount shouldnot be blank")
     private double amountNeeded;
 
     public Post() {
@@ -37,9 +37,9 @@ public class Post {
     }
 
     public enum postType{
-        Startup,
-        Medical,
-        CharityOrganisation
+        STARTUP,
+        MEDICAL,
+        CHARITYORGANISATION
     }
     @Enumerated(EnumType.STRING)
     private Post.postType postType;

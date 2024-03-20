@@ -37,10 +37,11 @@ public class UserController {
             return null; // or throw exception or handle as required
         }
     }
-    @GetMapping("profile/{id}")
-    public User getProfile(@PathVariable Integer id) throws UserException {
-        return this.userService.getProfile(id);
-    }
+
+    @GetMapping("profile/{userId}")
+    public User getProfileById(@PathVariable  Integer userId) throws UserException {
+        return this.userService.getProfileById(userId);
+
     @GetMapping("profiles")
     public List<User> getProfiles() throws UserException {
         return this.userService.getProfiles();

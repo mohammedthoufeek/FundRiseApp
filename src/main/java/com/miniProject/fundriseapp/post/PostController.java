@@ -12,8 +12,10 @@ public class PostController {
     @Autowired
     PostService postService;
     @PostMapping("post")
+
     public Post createPost(@Valid @RequestBody Post post, @RequestParam("userId") Integer user_id) throws  PostException {
         System.out.println(post+""+user_id);
+
         return this.postService.createPost(user_id,post);
     }
 
