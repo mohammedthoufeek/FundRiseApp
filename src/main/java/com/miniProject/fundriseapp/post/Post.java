@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 //@Table(name = "Post",schema = "public")
 public class Post {
     @Id
