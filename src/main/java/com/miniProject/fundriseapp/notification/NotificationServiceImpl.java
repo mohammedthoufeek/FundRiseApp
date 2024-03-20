@@ -53,8 +53,10 @@ public class NotificationServiceImpl implements NotificationService {
         allUsers.remove(user);
         allUsers.forEach(users -> {
             Notification notification = new Notification();
-            notification.setMessage("Notification from"+ user.getName()+"(Id: " + user.getId() + ") " + message);
             notification.setUser(users);
+
+            notification.setMessage("Notification from \""+ user.getName()+"\"" + message);
+
             notificationRepo.save(notification);
         });
     }
