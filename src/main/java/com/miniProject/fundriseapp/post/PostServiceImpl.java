@@ -112,6 +112,13 @@ public class PostServiceImpl implements PostService {
         return this.postrepo.findAll();
     }
 
+    @Override
+    public List<Post> getAllPostByUserId(Integer userId) throws PostException {
+
+        User userobj=this.userRepo.findById(userId).get();
+        if(userobj==null) throw new PostException("User not found");
+        return this.postrepo.findByUser(userobj);
+    }
 
 
 }
