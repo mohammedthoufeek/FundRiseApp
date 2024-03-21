@@ -24,7 +24,7 @@ public class NotificationController {
         return this.notificationService.getAllNotificationByTheirUserId(userId);
     }
     @PostMapping("Notification/{userId}/{postId}")
-    public Integer sendNotificationToAllUsersExceptPublisher(Integer userId, Integer postId) throws NotificationException {
+    public Integer sendNotificationToAllUsersExceptPublisher(@PathVariable  Integer userId,@PathVariable Integer postId) throws NotificationException {
         return this.notificationService.sendNotificationToAllUsersExceptPublisher(userId,postId);
     }
 
