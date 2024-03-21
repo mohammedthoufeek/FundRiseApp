@@ -26,7 +26,7 @@ public class PostController {
 
 
     @PutMapping("post")
-    public Post updatePost(@Valid @RequestBody Post post,Integer userId)throws PostException{
+    public Post updatePost(@Valid @RequestBody Post post,@RequestParam("userId") Integer userId)throws PostException{
         return this.postService.updatePost(post,userId);
     }
 
@@ -44,6 +44,13 @@ public class PostController {
     public List<Post> getAllPostByUserId(@PathVariable Integer userId) throws PostException{
         return this.postService.getAllPostByUserId(userId);
     }
+
+
+    @GetMapping("/user/{userId}/posts")
+    public List<Post> getPostByUserId(@PathVariable Integer userId) throws PostException{
+        return this.postService.getPostByUserId(userId);
+    }
+
 
 
 }

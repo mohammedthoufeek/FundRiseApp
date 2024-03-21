@@ -3,14 +3,19 @@ package com.miniProject.fundriseapp;
 import com.miniProject.fundriseapp.post.*;
 import com.miniProject.fundriseapp.user.User;
 
+import com.miniProject.fundriseapp.user.UserException;
+import com.miniProject.fundriseapp.user.UserService;
+import com.miniProject.fundriseapp.user.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @SpringBootTest
@@ -19,17 +24,21 @@ class PostServiceTest {
     @Autowired
     private PostService postService;
 
+    private UserService userService;
 
-//    @Test
-//    public void testCreatePost_Positive() throws PostException {
-//        PostService postService=new PostServiceImpl();
-//        try {
-//            Assertions.assertNotNull(postService.createPost(1,new Post(1,"Patient is on urgent","www.ci.com","cancer","Patient has blood cancer",230000.0)));
-//        }
-//        catch (PostCreationException e){
-//            e.printStackTrace();
-//        }
-//    }
+
+
+    @Test
+    public void testCreatePost() throws PostCreationException {
+        User user = new User(1,"Thoufeek",LocalDate.now(),"Sholinganallur","7332120965",21, User.Usertype.USER,"er@gmail.com","Erer@2121");
+        Post newPost = new Post(1,"Cancer","cancer.com","Blood cancer","The patient have blood cancer",20000.0);
+
+        // Test the createPost method
+        Post createdPost = postService.createPost(user.getId(), newPost);
+
+        assertNotNull(createdPost);
+        assertEquals(newPost, createdPost); // Check if created post matches the new post
+    }
 
 //    @Test
 //    public void testCreatePost_Negative()  {
@@ -120,7 +129,7 @@ class PostServiceTest {
         try {
             postService.deletePostById(1, 1);
         } catch (PostException e) {
-            Assertions.assertEquals("Post Id you entered is incorrect", e.getMessage());
+            assertEquals("Post Id you entered is incorrect", e.getMessage());
         }
     }
 
@@ -151,7 +160,7 @@ class PostServiceTest {
         try {
             postService.getAllPost(); // This should throw a PostException
         } catch (PostException e) {
-            Assertions.assertEquals("No post was created", e.getMessage());
+            assertEquals("No post was created", e.getMessage());
         }
     }
 }

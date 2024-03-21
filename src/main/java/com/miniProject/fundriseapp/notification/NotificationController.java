@@ -6,19 +6,18 @@ import com.miniProject.fundriseapp.post.Post;
 import com.miniProject.fundriseapp.post.PostException;
 import com.miniProject.fundriseapp.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+
+@CrossOrigin("http://localhost:4200")
 public class NotificationController {
     @Autowired
     NotificationService notificationService;
 
-    @GetMapping("Notifications/{userId}")
+    @GetMapping("Notification/{userId}")
     public List<Notification> getAllNotificationByUserId(@PathVariable Integer userId) throws NotificationException {
         return this.notificationService.getAllNotificationByTheirUserId(userId);
     }

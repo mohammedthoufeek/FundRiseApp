@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 @RestController
+@CrossOrigin("http://localhost:4200/")
 public class BankAccountController {
 
     @Autowired
@@ -11,14 +12,14 @@ public class BankAccountController {
 
     @PostMapping("account")
 
-    public BankAccount createAccount(@RequestBody BankAccount bankAccount, String email) throws BankAccountException {
-        return this.bankAccountService.createAccount(bankAccount, email);
-    }
-
-//    public BankAccount createAccount(@Valid @RequestBody BankAccount bankAccount, Integer id) throws BankAccountException {
-//        return this.bankAccountService.createAccount(bankAccount,id);
-//
+//    public BankAccount createAccount(@RequestBody BankAccount bankAccount, String email) throws BankAccountException {
+//        return this.bankAccountService.createAccount(bankAccount, email);
 //    }
+
+    public BankAccount createAccount(@Valid @RequestBody BankAccount bankAccount, Integer id) throws BankAccountException {
+        return this.bankAccountService.createAccount(bankAccount,id);
+
+    }
 
     @PatchMapping("account")
     public Boolean updateAccount(@PathVariable Integer id, String name) throws BankAccountException {
