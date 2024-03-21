@@ -2,6 +2,7 @@ package com.miniProject.fundriseapp.notification;
 
 import com.miniProject.fundriseapp.comment.Comment;
 import com.miniProject.fundriseapp.comment.CommentException;
+import com.miniProject.fundriseapp.post.PostRepo;
 import com.miniProject.fundriseapp.user.UserRepo;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class NotificationServiceImpl implements NotificationService {
     private NotificationRepo notificationRepo;
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private PostRepo postRepo;
 
 
     //    @Override
@@ -47,15 +50,24 @@ public class NotificationServiceImpl implements NotificationService {
         return notifications;
     }
 
-    @Override
-    public void sendNotificationToAllUsersExceptPublisher(User user, String message) {
-        List<User> allUsers = userRepo.findAll();
-        allUsers.remove(user);
-        allUsers.forEach(users -> {
-            Notification notification = new Notification();
-            notification.setMessage("Notification from"+ user.getName()+"(Id: " + user.getId() + ") " + message);
-            notification.setUser(users);
-            notificationRepo.save(notification);
-        });
-    }
+
+public Integer sendNotificationToAllUsersExceptPublisher(Integer userId, Integer postId) {
+    User userObj = this.userRepo.findById(userId).get();
+    Post postObj = this.postRepo.findById(postId).get();
+    List<User> allUsers = userRepo.findAll();
+    allUsers.remove(userObj);
+    allUsers.forEach(users -> {
+        Notification notification = new Notification();
+        notification.setUser(users);
+        notification.setPost(postObj);
+        notification.setTime(LocalTime.now());
+        notification.setDate(LocalDate.now());
+
+        notification.setMessage("Notification from \"" + userObj.getName() + "\"" + ": I am raising fund for " + postObj.getTitle() );
+
+        notificationRepo.save(notification);
+    });
+
+    return allUsers.size();
+}
 }
