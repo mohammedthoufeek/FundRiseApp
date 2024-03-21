@@ -19,15 +19,14 @@ public class NotificationController {
     @Autowired
     UserRepo userRepo;
 
-    @GetMapping("Notifications/{userId}")
+    @GetMapping("Notification/{userId}")
     public List<Notification> getAllNotificationByUserId(@PathVariable Integer userId) throws NotificationException {
         return this.notificationService.getAllNotificationByTheirUserId(userId);
     }
-    @PostMapping("/sendNotificationToAllExceptPublisher")
-    public String sendNotificationToAllExceptPublisher(@RequestParam Integer publisherId, @RequestParam String message) {
-        User publisher = userRepo.findById(publisherId).orElseThrow(() -> new IllegalArgumentException("Publisher not found"));
-        notificationService.sendNotificationToAllUsersExceptPublisher(publisher, message);
-        return "Notification sent to all users except the publisher";
+    @PostMapping("Notification/{userId}/{postId}")
+    public Integer sendNotificationToAllUsersExceptPublisher(Integer userId, Integer postId) throws NotificationException {
+        return this.notificationService.sendNotificationToAllUsersExceptPublisher(userId,postId);
     }
+
 
 }
