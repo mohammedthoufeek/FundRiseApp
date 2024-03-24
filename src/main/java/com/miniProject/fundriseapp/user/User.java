@@ -51,7 +51,7 @@ public class User{
     private String email;
     @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}", message = "Password must contain at least one digit, one lowercase and one uppercase letter, and be 6-12 characters long")
     private String password;
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private BankAccount bankAccountDetails;
 
 

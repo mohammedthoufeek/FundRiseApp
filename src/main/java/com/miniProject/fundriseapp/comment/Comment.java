@@ -24,8 +24,9 @@ public class Comment {
     private Integer id;
     @NotBlank(message = "message shouldnot be blank")
     private String message;
-//    private LocalTime time;
-@NotNull(message = "Date of birth cannot be null")
+  private LocalTime time;
+
+    @NotNull(message = "Date of birth cannot be null")
 @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     @ManyToOne
@@ -90,7 +91,13 @@ public class Comment {
     public void setUser(User user) {
         this.user = user;
     }
+    public LocalTime getTime() {
+        return time;
+    }
 
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
 
     @Override
     public String toString() {

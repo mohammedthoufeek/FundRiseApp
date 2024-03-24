@@ -16,7 +16,7 @@ public class NotificationController {
     @Autowired
     NotificationService notificationService;
 
-    @GetMapping("Notifications/{userId}")
+    @GetMapping("Notification/{userId}")
     public List<Notification> getAllNotificationByUserId(@PathVariable Integer userId) throws NotificationException {
         return this.notificationService.getAllNotificationByTheirUserId(userId);
     }

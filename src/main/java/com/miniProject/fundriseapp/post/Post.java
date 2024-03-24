@@ -47,8 +47,8 @@ public class Post {
     private List<Comment> comment=new ArrayList<>();
     @NotNull(message = "amount shouldnot be blank")
     private double amountreceived;
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
-    private List<Transaction> payments=new ArrayList<>();
+//    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+//    private List<Transaction> payments=new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -61,7 +61,7 @@ public class Post {
         this.amountNeeded = amountNeeded;
     }
 
-    public Post(Integer id, String title, String urlField, String cause, String details, double amountNeeded, postType usertype, List<Comment> comment, double amountreceived, List<Transaction> payments, User user) {
+    public Post(Integer id, String title, String urlField, String cause, String details, double amountNeeded, postType usertype, List<Comment> comment, double amountreceived,  User user) {
         this.id = id;
         this.title = title;
         this.urlField = urlField;
@@ -71,7 +71,7 @@ public class Post {
         this.postType = usertype;
         this.comment = comment;
         this.amountreceived = amountreceived;
-        this.payments = payments;
+
         this.user = user;
     }
 
@@ -147,13 +147,7 @@ public class Post {
         this.amountreceived = amountReceived;
     }
 
-    public List<Transaction> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(List<Transaction> payments) {
-        this.payments = payments;
-    }
+   
 
     public User getUser() {
         return user;

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 
@@ -14,7 +15,7 @@ public class CommentController {
     CommentService commentService;
 
     @PostMapping("comment")
-    public String createComment(@Valid @RequestBody CommentDto commentDto) throws CommentException{
+    public Map<String, String> createComment(@Valid @RequestBody CommentDto commentDto) throws CommentException{
         return this.commentService.createComment(commentDto);
     }
 
@@ -35,10 +36,10 @@ public class CommentController {
         return this.commentService.updateMessage(commentId,message);
     }
 
-//    @GetMapping("comment/{id}")
-//    public Comment getCommentById(@PathVariable Integer id) throws CommentException{
-//        return this.commentService.getCommentById(id);
-//    }
+    @GetMapping("comment/{id}")
+    public List<Comment> getCommentById(@PathVariable Integer id) throws CommentException{
+        return this.commentService.getCommentById(id);
+    }
 //
 //    @GetMapping("comments")
 //    public List<Comment> getAllComments() throws CommentException{

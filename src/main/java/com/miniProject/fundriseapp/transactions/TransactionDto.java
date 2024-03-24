@@ -18,8 +18,7 @@ public class TransactionDto {
     private Integer postId;
    @NotNull(message = "amount Field shouldnot be blank")
     private Double amount;
-   @NotNull(message = "Date of birth cannot be null")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private LocalDate date;
     private LocalTime time;
 
