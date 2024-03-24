@@ -4,7 +4,7 @@ public interface BankAccountService {
 
 
     //create account
-    BankAccount createAccount(BankAccount newBankAccount, Integer userId) throws BankAccountException;
+    BankAccount createAccount(BankAccount newBankAccount, Integer id) throws BankAccountException;
 
     //read account
     BankAccount getAccountById(Integer accountId) throws BankAccountException;

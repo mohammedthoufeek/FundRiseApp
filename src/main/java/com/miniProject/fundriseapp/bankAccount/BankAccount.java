@@ -31,7 +31,16 @@ public class BankAccount {
     public BankAccount() {
     }
 
-    public BankAccount(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, String bankName) {
+
+
+    public BankAccount(String accountName, Integer accountNumber, Integer cvv) {
+        AccountName = accountName;
+        AccountNumber = accountNumber;
+        this.cvv = cvv;
+    }
+
+    public BankAccount(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, String bankName, User user) {
+
         this.id = id;
         this.balance = balance;
         AccountName = accountName;
@@ -40,6 +49,17 @@ public class BankAccount {
         BankName = bankName;
 
     }
+
+    public BankAccount(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, String bankName) {
+        this.id = id;
+        this.balance = balance;
+        AccountName = accountName;
+        AccountNumber = accountNumber;
+        this.cvv = cvv;
+        BankName = bankName;
+    }
+
+
 
     public Integer getId() {
         return id;
