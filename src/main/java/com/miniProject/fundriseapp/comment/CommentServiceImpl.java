@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -28,15 +29,16 @@ public class CommentServiceImpl implements CommentService{
     @Autowired
     private NotificationRepo notificationRepo;
     @Override
-    public String createComment(CommentDto commentDto) throws CommentException {
+    public Map<String, String> createComment(CommentDto commentDto) throws CommentException {
         Post postObj=this.postRepo.findById(commentDto.getPostId()).get();
         if(postObj==null) throw new CommentException("Post not present to comment");
         User user=this.userRepo.findById(commentDto.getUserId()).get();
         if(user==null) throw new CommentException("User is not present to comment");
         Comment commentObj=new Comment();
         commentObj.setUser(user);
-        commentObj.setDate(commentDto.getDate());
+        commentObj.setDate(LocalDate.now());
         commentObj.setMessage(commentDto.getMessage());
+        commentObj.setTime(LocalTime.now());
 //        System.out.println(commentObj+" "+postObj+" "+user);
         Comment commentOb=this.commentRepo.save(commentObj);
         if(commentOb==null) throw new CommentException("Comment is not saved");
@@ -53,16 +55,20 @@ public class CommentServiceImpl implements CommentService{
         notification.setDate(LocalDate.now());
         notification.setTime(LocalTime.now());
         this.notificationRepo.save(notification);
-        this.postRepo.save(postObj);
-        return "Comment Created Successfull";
+
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Comment created  successfully");
+        return response;
+
     }
 
 
     @Override
-    public Comment getCommentById(Integer id) throws CommentException {
-        Optional <Comment> commentOpt=this.commentRepo.findById(id);
-        if(commentOpt.isEmpty()) throw new CommentException("Enter correct id to find the comment");
-        return this.commentRepo.findById(id).get();
+    public List<Comment> getCommentById(Integer postId) throws CommentException {
+        Post postObj = this.postRepo.findById(postId).get();
+        if (postObj == null) throw new CommentException("Post is null");
+        return postObj.getComment();
     }
 
     @Override

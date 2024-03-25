@@ -41,6 +41,7 @@ public class PostController {
         return this.postService.deletePostById(id,userId);
     }
 
+
     @GetMapping("/user/{userId}/posts")
     public List<Post> getPostByUserId(@PathVariable Integer userId) throws PostException{
         return this.postService.getPostByUserId(userId);

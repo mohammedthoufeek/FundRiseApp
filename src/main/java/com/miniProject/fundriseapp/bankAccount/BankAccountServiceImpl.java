@@ -22,13 +22,17 @@ public class BankAccountServiceImpl implements BankAccountService {
     private NotificationRepo notificationRepo;
 
     @Override
-    public BankAccount createAccount(BankAccount newBankAccount, Integer userId) throws BankAccountException {
-        User user = this.userRepo.findById(userId).get();
+
+    public BankAccount createAccount(BankAccount newBankAccount, Integer id) throws BankAccountException {
+        User user = this.userRepo.findById(id).get();
+
 
         if(user == null) throw new BankAccountException("User not found to add account");
         if(newBankAccount ==null) throw new BankAccountException("Account should not be null");
+
+
         if(user.getAccountDetails()!=null) throw new BankAccountException("Account already exist");
-        newBankAccount.setUser(user);
+
 
         Notification notification=new Notification();
         notification.setUser(user);
@@ -36,16 +40,20 @@ public class BankAccountServiceImpl implements BankAccountService {
         notification.setDate(LocalDate.now());
        notification.setTime(LocalTime.now());
        this.notificationRepo.save(notification);
-       return this.bankAccountRepo.save(newBankAccount);
+       BankAccount bankAccount=this.bankAccountRepo.save(newBankAccount);
+       user.setAccountDetails(bankAccount);
+       this.userRepo.save(user);
+       return bankAccount;
     }
     @Override
     public BankAccount getAccountById(Integer userId) throws BankAccountException { // find by userId - exception handling(check user id and account)
 
         User user = this.userRepo.findById(userId).get();
         if(user==null) throw new BankAccountException("User not found to add account");
-         BankAccount bankAccount =this.bankAccountRepo.findByUser(user);
-
-        if(userId!= bankAccount.getId()) throw new BankAccountException("User id doesn't match to get account");
+        // BankAccount bankAccount =this.bankAccountRepo.findByUser(user);
+        BankAccount bankAccount=user.getAccountDetails();
+        System.out.println("useraccount"+" "+bankAccount);
+     //   if(userId!= bankAccount.getId()) throw new BankAccountException("User id doesn't match to get account");
         return bankAccount;
     }
 
@@ -67,9 +75,14 @@ public class BankAccountServiceImpl implements BankAccountService {
         if(accountOpt.isEmpty()) throw new BankAccountException("Account not present to delete");
         this.bankAccountRepo.deleteById(accountId);
         Notification notification=new Notification();
+
+       // notification.setUser(accountOpt.get().getUser());
+        notification.setMessage("Your Account has been Deleted");
+
         notification.setUser(accountOpt.get().getUser());
         BankAccount accountOpt1 = this.bankAccountRepo.findById(accountId).get();
         notification.setMessage("Your Account:"+accountOpt1.getAccountName()+", Account Number:"+ accountOpt1.getAccountNumber()+" is Deleted");
+
         notification.setDate(LocalDate.now());
         notification.setTime(LocalTime.now());
         this.notificationRepo.save(notification);

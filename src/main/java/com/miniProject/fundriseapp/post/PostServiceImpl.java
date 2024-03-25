@@ -121,7 +121,9 @@ public class PostServiceImpl implements PostService {
         if(postOpt.isEmpty()) throw new PostException("No post was created");
         return this.postrepo.findAll();
     }
-    @Override
+
+@Override
+
     public List<Post> getPostByUserId(Integer userId)throws PostException {
         User userObj=this.userRepo.findById(userId).get();
         List<Post> posts=this.postrepo.findByUser(userObj);

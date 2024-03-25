@@ -26,22 +26,9 @@ public class BankAccount {
     private Integer cvv;
     @NotBlank(message = "BankName shouldnot be blank")
     private String BankName;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+
 
     public BankAccount() {
-    }
-
-
-
-    public BankAccount(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, String bankName) {
-        this.id = id;
-        this.balance = balance;
-        AccountName = accountName;
-        AccountNumber = accountNumber;
-        this.cvv = cvv;
-        BankName = bankName;
     }
 
 
@@ -51,6 +38,19 @@ public class BankAccount {
         AccountName = accountName;
         AccountNumber = accountNumber;
         this.cvv = cvv;
+        BankName = bankName;
+    }
+
+
+    public BankAccount(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, String bankName, User user) {
+
+        this.id = id;
+        this.balance = balance;
+        AccountName = accountName;
+        AccountNumber = accountNumber;
+        this.cvv = cvv;
+        BankName = bankName;
+
     }
 
     public BankAccount(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, String bankName, User user) {
@@ -123,13 +123,8 @@ public class BankAccount {
         BankName = bankName;
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+
 
     @Override
     public String toString() {
@@ -140,7 +135,7 @@ public class BankAccount {
                 ", AccountNumber=" + AccountNumber +
                 ", cvv=" + cvv +
                 ", BankName=" + BankName +
-                ", user=" + user +
+
                 '}';
     }
 }

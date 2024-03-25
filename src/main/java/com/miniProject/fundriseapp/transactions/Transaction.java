@@ -13,17 +13,16 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class Transaction {
    @Id
     @GeneratedValue
     private Integer id;
     @NotNull(message = "title Field shouldnot be blank")
     private double amount;
-   @NotNull(message = "Date of birth cannot be null")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private LocalDate date;
     private LocalTime time;
     @ManyToOne
