@@ -28,7 +28,6 @@ public class BankAccountServiceImpl implements BankAccountService {
         if(user == null) throw new BankAccountException("User not found to add account");
         if(newBankAccount ==null) throw new BankAccountException("Account should not be null");
 
-
         if(user.getAccountDetails()!=null) throw new BankAccountException("Account already exist");
 
 
@@ -72,6 +71,7 @@ public class BankAccountServiceImpl implements BankAccountService {
         Optional<BankAccount> accountOpt = this.bankAccountRepo.findById(accountId);
         if(accountOpt.isEmpty()) throw new BankAccountException("Account not present to delete");
         this.bankAccountRepo.deleteById(accountId);
+        if(this.bankAccountRepo.findById(accountId)!=null) throw new BankAccountException("Account still not deleted");
         Notification notification=new Notification();
        // notification.setUser(accountOpt.get().getUser());
         notification.setMessage("Your Account has been Deleted");
