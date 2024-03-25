@@ -44,21 +44,23 @@ public class CommentServiceImpl implements CommentService{
         if(commentOb==null) throw new CommentException("Comment is not saved");
         System.out.println(commentObj);
         postObj.getComment().add(commentOb);
-        this.postRepo.save(postObj);
+
 
         // sending notification to user
 
         Notification notification=new Notification();
         notification.setComment(commentObj);
         notification.setUser(user);
-        notification.setMessage("Your comment has been posted");
+        notification.setMessage("You have Commented \" "+commentObj.getMessage()+"\", for post titled as "+postObj.getTitle()+", for cause of:"+postObj.getCause()+" is done.");
         notification.setDate(LocalDate.now());
         notification.setTime(LocalTime.now());
         this.notificationRepo.save(notification);
 
+
         Map<String, String> response = new HashMap<>();
         response.put("message", "Comment created  successfully");
         return response;
+
     }
 
 
@@ -70,17 +72,19 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Comment updateComment(Comment comment,Integer userId) throws CommentException {
+    public Comment updateComment(Comment comment,Integer userId,Integer postId) throws CommentException {
         Optional<Comment> commentOpt=this.commentRepo.findById(comment.getId());
         if(commentOpt==null) throw new CommentException("Comment will not be updated");
         User userObj = this.userRepo.findById(userId).orElse(null);
         if(userObj==null) throw new CommentException("User not present to update comment");
+        Post postObj=this.postRepo.findById(postId).get();
         if(commentOpt.isPresent())
         {
+            Comment commentObj=this.commentRepo.findById(comment.getId()).get();
             Notification notification=new Notification();
             notification.setComment(comment);
             notification.setUser(userObj);
-            notification.setMessage("Your comment has been updated");
+            notification.setMessage("You have updated a Comment \" "+commentObj.getMessage()+"\",on Post titled as \""+postObj.getTitle()+"\"");
             notification.setDate(LocalDate.now());
             notification.setTime(LocalTime.now());
             this.notificationRepo.save(notification);
@@ -90,18 +94,19 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public Comment deleteCommentById(Integer id,Integer userId) throws CommentException {
+    public Comment deleteCommentById(Integer id,Integer userId,Integer postId) throws CommentException {
 
         Optional<Comment> commentOpt=this.commentRepo.findById(id);
         if(commentOpt==null) throw new CommentException("Comment id is not present to delete");
         User userObj = this.userRepo.findById(userId).orElse(null);
+        Post postObj=this.postRepo.findById(postId).get();
         if(userObj==null) throw new CommentException("User not present to delete comment");
         if (commentOpt.isPresent()) {
             Notification notification=new Notification();
             Comment retrievedComment = commentOpt.get();
             notification.setComment(retrievedComment);
             notification.setUser(userObj);
-            notification.setMessage("Your comment has been deleted");
+            notification.setMessage("Your Comment \" "+retrievedComment.getMessage()+"\",on Post titled as \""+postObj.getTitle()+"\" is deleted.");
             notification.setDate(LocalDate.now());
             notification.setTime(LocalTime.now());
             this.notificationRepo.save(notification);

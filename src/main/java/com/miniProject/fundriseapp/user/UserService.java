@@ -12,8 +12,8 @@ public interface UserService {
    public Map<String, String> signOut(HttpSession httpSession);
 
 
+   User getProfileById(Integer userId) throws UserException;
 
-    User getProfile(Integer userId) throws UserException;
 
     List<User> getProfiles() throws UserException;
 

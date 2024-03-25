@@ -7,13 +7,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:4200/")
+
+@CrossOrigin("http://localhost:4200")
+
 public class PostController {
     @Autowired
     PostService postService;
     @PostMapping("post")
+
     public Post createPost(@Valid @RequestBody Post post, @RequestParam("userId") Integer user_id) throws  PostException {
         System.out.println(post+""+user_id);
+
         return this.postService.createPost(user_id,post);
     }
 
@@ -36,6 +40,8 @@ public class PostController {
     public Post deletePostById(@PathVariable Integer id,Integer userId) throws PostException{
         return this.postService.deletePostById(id,userId);
     }
+
+
     @GetMapping("/user/{userId}/posts")
     public List<Post> getPostByUserId(@PathVariable Integer userId) throws PostException{
         return this.postService.getPostByUserId(userId);

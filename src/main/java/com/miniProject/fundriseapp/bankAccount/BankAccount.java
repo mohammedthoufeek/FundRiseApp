@@ -33,11 +33,14 @@ public class BankAccount {
 
 
 
+
     public BankAccount(String accountName, Integer accountNumber, Integer cvv) {
         AccountName = accountName;
         AccountNumber = accountNumber;
         this.cvv = cvv;
+        BankName = bankName;
     }
+
 
     public BankAccount(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, String bankName, User user) {
 
@@ -50,14 +53,25 @@ public class BankAccount {
 
     }
 
-    public BankAccount(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, String bankName) {
+    public BankAccount(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, String bankName, User user) {
+
         this.id = id;
         this.balance = balance;
         AccountName = accountName;
         AccountNumber = accountNumber;
         this.cvv = cvv;
         BankName = bankName;
+        this.user = user;
     }
+
+//    public BankAccount(Integer id, double balance, String accountName, Integer accountNumber, Integer cvv, String bankName) {
+//        this.id = id;
+//        this.balance = balance;
+//        AccountName = accountName;
+//        AccountNumber = accountNumber;
+//        this.cvv = cvv;
+//        BankName = bankName;
+//    }
 
 
 

@@ -22,8 +22,10 @@ public class BankAccountServiceImpl implements BankAccountService {
     private NotificationRepo notificationRepo;
 
     @Override
+
     public BankAccount createAccount(BankAccount newBankAccount, Integer id) throws BankAccountException {
         User user = this.userRepo.findById(id).get();
+
 
         if(user == null) throw new BankAccountException("User not found to add account");
         if(newBankAccount ==null) throw new BankAccountException("Account should not be null");
@@ -34,7 +36,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 
         Notification notification=new Notification();
         notification.setUser(user);
-        notification.setMessage("Your Account has been created");
+        notification.setMessage("Your Account:"+newBankAccount.getAccountName()+", Account Number:"+ newBankAccount.getAccountNumber()+" is created");
         notification.setDate(LocalDate.now());
        notification.setTime(LocalTime.now());
        this.notificationRepo.save(notification);
@@ -73,8 +75,14 @@ public class BankAccountServiceImpl implements BankAccountService {
         if(accountOpt.isEmpty()) throw new BankAccountException("Account not present to delete");
         this.bankAccountRepo.deleteById(accountId);
         Notification notification=new Notification();
+
        // notification.setUser(accountOpt.get().getUser());
         notification.setMessage("Your Account has been Deleted");
+
+        notification.setUser(accountOpt.get().getUser());
+        BankAccount accountOpt1 = this.bankAccountRepo.findById(accountId).get();
+        notification.setMessage("Your Account:"+accountOpt1.getAccountName()+", Account Number:"+ accountOpt1.getAccountNumber()+" is Deleted");
+
         notification.setDate(LocalDate.now());
         notification.setTime(LocalTime.now());
         this.notificationRepo.save(notification);

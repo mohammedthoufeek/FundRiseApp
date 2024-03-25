@@ -42,15 +42,15 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-   // @Transactional(rollbackFor = {ValidationException.class})
     public User register(  User user) throws UserException {
+
         User email = userRepo.findByEmail(user.getEmail());
         User password=userRepo.findByPassword(user.getPassword());
         if(email!=null)throw  new UserException("Email already exists");
         if(password!=null)throw  new UserException("Password is weak");
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashedPassword);
-        return userRepo.save(user);
+        return this.userRepo.save(user);
     }
     @Override
     public User signIn(SignInRequest signInRequest, HttpSession httpSession) throws UserException {
@@ -74,7 +74,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getProfile(Integer userId) throws UserException {
+
+    public User getProfileById(Integer userId) throws UserException {
+
 
         User user=this.userRepo.findById(userId).get();
         if(user==null) throw new UserException("User does not Exist");
@@ -180,9 +182,7 @@ public class UserServiceImpl implements UserService {
     }
     public Message editMessage(MessageDTO messageDTO) throws UserException {
         User userObj = this.userRepo.findById(messageDTO.getUserId()).get();
-
         Message messageObj = this.messageRepo.findById(messageDTO.getMessageId()).get();
-
         if (userObj.getId() != messageObj.getUser().getId()) throw new UserException("User can't edit");
         messageObj.setMessage(messageDTO.getMessage());
         return this.messageRepo.save(messageObj);
