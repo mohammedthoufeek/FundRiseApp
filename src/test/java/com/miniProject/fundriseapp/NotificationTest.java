@@ -30,12 +30,6 @@ public class NotificationTest {
     @Order(1)
     @DisplayName("Valid user Id")
     @Test
-//    void validUserId() {
-//        Integer userId = 1;
-//        User user = new User(userId, "Aishwarya", LocalDate.now(), "yugsdjhsje", "6378765432", 45, User.Usertype.USER, "aishwa@gmail.com", "gv5");
-//        Assertions.assertNotNull(user);
-//        assertEquals(userId, user.getId());
-//    }
     void validUserId() {
         Integer userId = 1;
         User user = null;
@@ -45,8 +39,7 @@ public class NotificationTest {
             Assertions.assertNotNull(user);
             assertEquals(userId, user.getId());
         } catch (Exception e) {
-            // Handle any exceptions that occur during user creation
-            user = null; // Set user to null in case of an exception
+            user = null;
         }
     }
 

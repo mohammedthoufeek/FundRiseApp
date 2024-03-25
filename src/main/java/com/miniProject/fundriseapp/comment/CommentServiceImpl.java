@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService{
         Notification notification=new Notification();
         notification.setComment(commentObj);
         notification.setUser(user);
-        notification.setMessage("You have Commented \" "+commentObj.getMessage()+"\", for post titled as "+postObj.getTitle()+", for cause of:"+postObj.getCause()+" is done.");
+        notification.setMessage("You have Commented \" "+commentObj.getMessage()+"\", for post titled as "+postObj.getTitle()+", for cause of "+postObj.getCause()+" is done.");
         notification.setDate(LocalDate.now());
         notification.setTime(LocalTime.now());
         this.notificationRepo.save(notification);
