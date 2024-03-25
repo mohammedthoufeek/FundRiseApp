@@ -24,7 +24,7 @@ public class BankAccountServiceTest {
     @Order(1)
     void createAccountTest() throws BankAccountException {
         try{
-            Assertions.assertNotNull(bankAccountService.createAccount(new BankAccount(2,200.0,"dhanush",234,111,"SBI"),"abc"));
+            Assertions.assertNotNull(bankAccountService.createAccount(new BankAccount(2,200.0,"dhanush",234,111,"SBI"),1));
         }
         catch (BankAccountException e) {
             throw new BankAccountException(e.getMessage());
@@ -36,7 +36,7 @@ public class BankAccountServiceTest {
     @Order(2)
     void duplicateAccountCreation(){
         Assertions.assertThrows(BankAccountException.class, () -> {
-            this.bankAccountService.createAccount(new BankAccount(2,200.0,"dhanush",234,111,"SBI"),"abc");
+            this.bankAccountService.createAccount(new BankAccount(2,200.0,"dhanush",234,111,"SBI"),1);
     });
     }
 
