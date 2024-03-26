@@ -42,7 +42,8 @@ public class TransactionServiceImpl implements TransactionService {
         if(transactionDto.getAmount()<0) throw new TransactionException("Check your amount entered");
         Transaction transactionObj1 = new Transaction(transactionDto.getAmount(), transactionDto.getDate(), transactionDto.getTime(), user, postObj );
         if(transactionObj1 ==null) throw new TransactionException("Payment user1 not present");
-        bankAccount.setBalance(bankAccount.getBalance()+ transactionDto.getAmount());
+        bankAccount.setBalance(bankAccount.getBalance() - transactionDto.getAmount());
+        if(bankAccount.getBalance() < transactionDto.getAmount()) throw new TransactionException("Insufficient balance");
         transactionObj1.setTime(LocalTime.now());
         Transaction transactionObj2 = this.transactionRepo.save(transactionObj1);
         if(transactionObj2 ==null) throw new TransactionException("Payment user2 not present");

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200/", "http://localhost:3000/"})
 public class BankAccountController {
 
     @Autowired
@@ -23,9 +24,6 @@ public class BankAccountController {
     public BankAccount getAccountById(@PathVariable("id") Integer accountId) throws BankAccountException {
         return this.bankAccountService.getAccountById(accountId);
     }
-
-
-
 
     @DeleteMapping("account/{id}")
     public BankAccount deleteAccountById(@PathVariable("id") Integer accountId) throws BankAccountException {
