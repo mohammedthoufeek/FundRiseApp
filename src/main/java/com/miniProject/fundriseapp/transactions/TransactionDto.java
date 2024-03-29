@@ -33,6 +33,12 @@ public class TransactionDto {
         this.time = time;
     }
 
+    public TransactionDto(Integer userId, Integer postId, Double amount) {
+        this.userId = userId;
+        this.postId = postId;
+        this.amount = amount;
+    }
+
     public LocalDate getDate() {
         return date;
     }
