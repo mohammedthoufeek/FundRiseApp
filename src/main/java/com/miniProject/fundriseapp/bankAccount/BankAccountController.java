@@ -10,9 +10,12 @@ public class BankAccountController {
     @Autowired
     private BankAccountService bankAccountService;
 
-    @PostMapping("account")
-    public BankAccount createAccount(@Valid @RequestBody BankAccount bankAccount, Integer id) throws BankAccountException {
+
+    @PostMapping("account/{id}")
+    public BankAccount createAccount(@Valid @RequestBody BankAccount bankAccount,@PathVariable Integer id) throws BankAccountException {
+
         return this.bankAccountService.createAccount(bankAccount,id);
+
     }
 
     @PatchMapping("account")
@@ -21,8 +24,8 @@ public class BankAccountController {
     }
 
     @GetMapping("account/{id}")
-    public BankAccount getAccountById(@PathVariable("id") Integer accountId) throws BankAccountException {
-        return this.bankAccountService.getAccountById(accountId);
+    public BankAccount getAccountById(@PathVariable Integer id) throws BankAccountException {
+        return this.bankAccountService.getAccountById(id);
     }
 
     @DeleteMapping("account/{id}")

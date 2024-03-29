@@ -29,7 +29,9 @@ public class Message {
     private PersonalMessage personalMessage;
     @ManyToOne
     private User user;
+
     private String userName;
+
 
     public String getUserName() {
         return userName;

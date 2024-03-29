@@ -3,6 +3,7 @@ package com.miniProject.fundriseapp.user;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.miniProject.fundriseapp.bankAccount.BankAccount;
 import com.miniProject.fundriseapp.notification.Notification;
@@ -20,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class User{
     @Id
     @GeneratedValue
@@ -50,17 +51,20 @@ public class User{
     private String email;
     @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}", message = "Password must contain at least one digit, one lowercase and one uppercase letter, and be 6-12 characters long")
     private String password;
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private BankAccount bankAccountDetails;
 
 
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Post> post=new ArrayList<>();
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Transaction> payments=new ArrayList<>();
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+            @JsonIgnore
     List<Notification> notification=new ArrayList<>();
 
     public User() {

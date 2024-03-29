@@ -12,6 +12,7 @@ public class TransactionController {
 
     @PostMapping("payment")
     public Transaction addPayment(@RequestBody TransactionDto transactionDto) throws TransactionException {
+        System.out.println(transactionDto);
         return this.transactionService.addPayments(transactionDto);
     }
 

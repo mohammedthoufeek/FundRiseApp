@@ -13,7 +13,7 @@ import java.util.List;
         property = "id")
 public class PersonalMessage {
   @Id
-    @GeneratedValue
+  @GeneratedValue
     Integer id;
     @ManyToOne
     private User user1;
