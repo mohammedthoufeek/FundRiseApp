@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RestController
 
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
 public class CommentController {
     @Autowired
     CommentService commentService;

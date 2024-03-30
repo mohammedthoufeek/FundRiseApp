@@ -78,6 +78,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post updatePost(Post post,Integer userId)throws PostException {
+        System.out.println("User Id .......: "+userId+" "+post);
         Optional<Post> postOpt =this.postrepo.findById(post.getId());
         if(postOpt==null) throw new PostException("Post is not available 'By Update post'");
         User userObj = this.userRepo.findById(userId).orElse(null);
