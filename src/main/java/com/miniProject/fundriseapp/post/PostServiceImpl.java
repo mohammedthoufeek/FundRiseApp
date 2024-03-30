@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -36,27 +37,22 @@ public class PostServiceImpl implements PostService {
         User userObj = this.userRepo.findById(userId).orElse(null);
         if(userObj==null) throw new PostException("User can't be null");
         if (userObj != null) {
-            // Set the user for the new post
             newPost.setUser(userObj);
-            // Save the post
             Post postObj = this.postrepo.save(newPost);
             if(postObj==null) throw new PostException("Post is not created");
-
-            // Add the post to the user's list of posts
             userObj.getPost().add(postObj);
-            // Save the user object
             this.userRepo.save(userObj);
             String message="post";
 
-
+//            // Notification
+//
             Notification notification=new Notification();
             notification.setPost(postObj);
             notification.setUser(userObj);
-            notification.setMessage("Your Post has been published");
+            notification.setMessage("Your Post  titled as \""+newPost.getTitle()+"\" for cause of  "+postObj.getCause()+" is published.");
             notification.setDate(LocalDate.now());
             notification.setTime(LocalTime.now());
             this.notificationRepo.save(notification);
-
             return postObj;
         } else {
             throw new PostException("User not found");
@@ -88,7 +84,7 @@ public class PostServiceImpl implements PostService {
             Notification notification=new Notification();
             notification.setPost(getPostById(post.getId()));
             notification.setUser(userObj);
-            notification.setMessage("Your post has been updated");
+            notification.setMessage("Your Post  titled as \" "+post.getTitle()+"\" for cause of "+post.getCause()+" is updated.");
             notification.setDate(LocalDate.now());
             notification.setTime(LocalTime.now());
             this.notificationRepo.save(notification);
@@ -99,20 +95,21 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post deletePostById(Integer id, Integer userId)throws PostException {
-        Optional<Post> postOpt=this.postrepo.findById(id);
-        if (postOpt.isPresent()) {
-            this.postrepo.deleteById(id);
+        Post postOpt=this.postrepo.findById(id).get();
+
+        if (postOpt!=null) {
             User userObj = this.userRepo.findById(userId).orElse(null);
+
             //Sending Notification to user after deleting the post
             Notification notification=new Notification();
             notification.setUser(userObj);
-            notification.setMessage("Your post has been deleted");
+            notification.setMessage("Your Post titled as \""+postOpt.getTitle()+"\" for cause of "+postOpt.getCause()+"is deleted.");
             notification.setDate(LocalDate.now());
             notification.setTime(LocalTime.now());
             this.notificationRepo.save(notification);
-            //notification.getPost(postOpt);
 
-            return postOpt.get();
+            this.postrepo.deleteById(id);
+            return postOpt;
         }
 
         else throw new PostException("Post Id you entered is incorrect");
@@ -124,14 +121,15 @@ public class PostServiceImpl implements PostService {
         if(postOpt.isEmpty()) throw new PostException("No post was created");
         return this.postrepo.findAll();
     }
+
 @Override
+
     public List<Post> getPostByUserId(Integer userId)throws PostException {
         User userObj=this.userRepo.findById(userId).get();
         List<Post> posts=this.postrepo.findByUser(userObj);
         if(posts==null) throw new PostException("Post is not available for userId");
         return posts;
     }
-
 
 
 }

@@ -11,4 +11,5 @@ import java.util.List;
 public interface NotificationService {
 
     List<Notification>getAllNotificationByTheirUserId(Integer userId) throws NotificationException;
+    public Integer sendNotificationToAllUsersExceptPublisher(Integer userId,Integer postId);
 }
