@@ -35,23 +35,26 @@ public class TransactionServiceImpl implements TransactionService {
 
         User user = this.userRepo.findById(transactionDto.getUserId()).get();
         System.out.println("user"+" "+user);
-       // if(user==null) throw new TransactionException("User not found");
+        if(user==null) throw new TransactionException("User not found");
         BankAccount bankAccount = user.getAccountDetails();
         System.out.println("account"+" "+bankAccount);
-      //  if(bankAccount ==null) throw new TransactionException("Account not present");
+        if(bankAccount ==null) throw new TransactionException("Account not present");
         Post postObj = this.postRepo.findById(transactionDto.getPostId()).get();
-      //  if(user.getId()== postObj.getUser().getId()) throw new TransactionException("Post user can't able to make payment");
-        //if(postObj==null) throw new TransactionException("Unavailable Post");
-        //if(transactionDto.getAmount()<0) throw new TransactionException("Check your amount entered");
+        if(user.getId()== postObj.getUser().getId()) throw new TransactionException("Post user can't able to make payment");
+        if(postObj==null) throw new TransactionException("Unavailable Post");
+        if(transactionDto.getAmount()<0) throw new TransactionException("Check your amount entered");
         Transaction transactionObj1 = new Transaction(transactionDto.getAmount(), LocalDate.now(), LocalTime.now(), user, postObj );
         System.out.println("transactionworking"+""+transactionObj1);
-     //   if(transactionObj1 ==null) throw new TransactionException("Payment user1 not present");
-        bankAccount.setBalance(bankAccount.getBalance()+ transactionDto.getAmount());
+        if(transactionObj1 ==null) throw new TransactionException("Payment user1 not present");
+        bankAccount.setBalance(bankAccount.getBalance() - transactionDto.getAmount());
+        if(bankAccount.getBalance() < transactionDto.getAmount()) throw new TransactionException("Insufficient balance");
+        transactionObj1.setTime(LocalTime.now());
+       // bankAccount.setBalance(bankAccount.getBalance()+ transactionDto.getAmount());
 //        transactionObj1.setTime(LocalTime.now());
 //        transactionObj1.setDate(LocalDate.now());
 
         Transaction transactionObj2 = this.transactionRepo.save(transactionObj1);
-       // if(transactionObj2 ==null) throw new TransactionException("Payment user2 not present");
+        if(transactionObj2 ==null) throw new TransactionException("Payment user2 not present");
         postObj.setAmountNeeded(postObj.getAmountNeeded()- transactionDto.getAmount());
         postObj.setAmountReceived(postObj.getAmountReceived()+ transactionDto.getAmount());
         this.postRepo.save(postObj);

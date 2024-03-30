@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin(origins = {"http://localhost:4200/", "http://localhost:3000/"})
 public class TransactionController {
     @Autowired
     private TransactionService transactionService;

@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200/", "http://localhost:3000/"})
 
-@CrossOrigin("http://localhost:4200/")
 public class CommentController {
     @Autowired
     CommentService commentService;
