@@ -6,6 +6,7 @@ import com.miniProject.fundriseapp.comment.Comment;
 import com.miniProject.fundriseapp.post.Post;
 import com.miniProject.fundriseapp.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,9 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Entity
-//@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "id")
+
 public class Notification {
 
   @Id
@@ -29,8 +28,8 @@ public class Notification {
     @ManyToOne
     private Comment comment;
 
-
-   private  String message;
+    @NotBlank(message = "message should not be blank")
+    private  String message;
     private LocalDate date;
     private LocalTime time;
 

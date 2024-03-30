@@ -46,7 +46,10 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transactionObj1 = new Transaction(transactionDto.getAmount(), LocalDate.now(), LocalTime.now(), user, postObj );
         System.out.println("transactionworking"+""+transactionObj1);
         if(transactionObj1 ==null) throw new TransactionException("Payment user1 not present");
-        bankAccount.setBalance(bankAccount.getBalance()+ transactionDto.getAmount());
+        bankAccount.setBalance(bankAccount.getBalance() - transactionDto.getAmount());
+        if(bankAccount.getBalance() < transactionDto.getAmount()) throw new TransactionException("Insufficient balance");
+        transactionObj1.setTime(LocalTime.now());
+       // bankAccount.setBalance(bankAccount.getBalance()+ transactionDto.getAmount());
 //        transactionObj1.setTime(LocalTime.now());
 //        transactionObj1.setDate(LocalDate.now());
 
@@ -59,6 +62,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 
 
+
 //        Notification notification=new Notification();
 //        notification.setPost(postObj);
 //        Optional<Post> UserId = this.postRepo.findById(postObj.getUser().getId());
@@ -67,6 +71,23 @@ public class TransactionServiceImpl implements TransactionService {
 //        notification1=new Notification(UserId.get().getUser(),postObj,"Amount has been Credited",LocalDate.now(),LocalTime.now());
 //        this.notificationRepo.save(notification1);
 
+
+
+        Notification notification=new Notification();
+        notification.setPost(postObj);
+        Optional<Post> UserId = this.postRepo.findById(postObj.getUser().getId());
+        Notification notification1=new Notification(user,postObj,"Amount has been Debited from "+postObj.getUser().getName(),LocalDate.now(),LocalTime.now());
+        this.notificationRepo.save(notification1);
+        notification1=new Notification(UserId.get().getUser(),postObj,"Amount has been Credited from "+user.getName(),LocalDate.now(),LocalTime.now());
+        this.notificationRepo.save(notification1);
+//        notification.setMessage("Amount has been Credited");
+//        notification.setUser(user);
+//        notification.setMessage("Amount has been Debited");
+//        notification.setUser(postObj.getUser());
+//        notification.setMessage("Amount has been Debited");
+//        notification.setDate(LocalDate.now());
+//        notification.setTime(LocalTime.now());
+//        this.notificationRepo.save(notification);
 
 
         return transactionObj2;

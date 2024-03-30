@@ -8,14 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200/", "http://localhost:3000/"})
 
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
 public class CommentController {
     @Autowired
     CommentService commentService;
 
     @PostMapping("comment")
+
     public Map<String, String> createComment(@Valid @RequestBody CommentDto commentDto) throws CommentException{
+
         return this.commentService.createComment(commentDto);
     }
 
@@ -25,9 +27,9 @@ public class CommentController {
 //        return this.commentService.updateComment(comment);
 //    }
 
-    @PutMapping("comment")
-    public Comment updateComment(@Valid @RequestBody Comment comment,Integer userId) throws CommentException{
-        return this.commentService.updateComment(comment,userId);
+    @PutMapping("comment/{userId}{postId}")
+    public Comment updateComment(@Valid @RequestBody Comment comment,@PathVariable  Integer userId,@PathVariable Integer postId) throws CommentException{
+        return this.commentService.updateComment(comment,userId,postId);
     }
 
 
@@ -46,9 +48,9 @@ public class CommentController {
 //        return this.commentService.getAllComments();
 //    }
 
-    @DeleteMapping("comment/{id}")
-    public Comment deleteCommentById(@PathVariable Integer id,Integer userId) throws CommentException{
-        return this.commentService.deleteCommentById(id,userId);
+    @DeleteMapping("comment/{id}/{userId}/{postId}")
+    public Comment deleteCommentById(@PathVariable Integer id,@PathVariable Integer userId,@PathVariable Integer postId) throws CommentException{
+        return this.commentService.deleteCommentById(id,userId,postId);
     }
 
 }
