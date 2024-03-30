@@ -14,5 +14,4 @@ public interface PostService {
 
     List<Post> getAllPost() throws PostException ;
 
-    List<Post> getPostByUserId(Integer userId) throws PostException;
 }

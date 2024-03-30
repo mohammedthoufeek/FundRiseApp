@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200/", "http://localhost:3000/"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
 
 public class PostController {
     @Autowired
@@ -32,7 +32,7 @@ public class PostController {
     }
 
     @GetMapping("posts")
-    public List<Post> getPostById() throws PostException{
+    public List<Post> getAllPosts() throws PostException{
         return this.postService.getAllPost();
     }
     @DeleteMapping("post/{id}")
